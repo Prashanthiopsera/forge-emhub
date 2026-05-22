@@ -1,0 +1,34 @@
+# Forge tooling
+.forge-commit-ready
+.forge/project-id
+.claude/hooks/
+
+# Node
+node_modules/
+npm-debug.log*
+.npm/
+
+# Env files — only *.example are tracked
+infra/env/.env.dev
+infra/env/.env.staging
+infra/env/.env.prod
+.env
+.env.local
+
+# Terraform
+infra/terraform/.terraform/
+infra/terraform/.terraform.lock.hcl
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.*
+infra/terraform/*.tfplan
+infra/terraform/crash.log
+infra/terraform/crash.*.log
+infra/terraform/terraform.tfvars
+infra/terraform/backend.hcl
+
+# Supabase CLI local artifacts
+infra/supabase/.branches/
+infra/supabase/.temp/
+
+# macOS
+.DS_Store

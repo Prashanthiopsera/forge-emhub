@@ -1,0 +1,61 @@
+# Supabase CLI configuration for local development.
+#
+# Used by `supabase start` to spin up a local stack matching the production project shape:
+# PostgreSQL 16, Auth (GoTrue), Storage, Realtime, Edge Functions.
+#
+# This file is checked in — it contains no secrets. The local CLI generates dev-only
+# anon/service keys at `supabase start` time and writes them to .supabase/ (gitignored).
+
+project_id = "emhub"
+
+[api]
+enabled         = true
+port            = 54321
+schemas         = ["public", "storage"]
+extra_search_path = ["public"]
+max_rows        = 1000
+
+[db]
+port          = 54322
+major_version = 16
+
+[db.pooler]
+enabled       = true
+port          = 54329
+pool_mode     = "transaction"
+default_pool_size = 20
+max_client_conn   = 100
+
+[realtime]
+enabled = true
+
+[studio]
+enabled = true
+port    = 54323
+
+[inbucket]
+enabled = true
+port    = 54324
+
+[storage]
+enabled         = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled                = true
+site_url               = "http://localhost:5173"
+additional_redirect_urls = ["https://localhost:5173"]
+jwt_expiry             = 3600
+enable_signup          = false
+enable_anonymous_sign_ins = false
+enable_manual_linking  = false
+
+[auth.email]
+enable_signup         = false
+double_confirm_changes = true
+enable_confirmations  = false
+
+[edge_runtime]
+enabled = true
+policy  = "oneshot"
+inspector_port = 8083

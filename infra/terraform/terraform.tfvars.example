@@ -1,0 +1,21 @@
+# Example tfvars — copy to terraform.tfvars (gitignored) and fill in real values,
+# or pass via -var-file=<path> from CI.
+#
+# Secrets (organization_id, db_password, dev_branch_password, staging_branch_password)
+# should NOT live in this file — export them as TF_VAR_<name> environment variables
+# sourced from the secret vault.
+
+project_name = "emhub"
+region       = "us-east-1"
+
+compute_sizes = {
+  dev     = "small"
+  staging = "medium"
+  prod    = "large"
+}
+
+monthly_budget_usd       = 500
+cost_alert_threshold_usd = 400  # WO-001 AC: $400 alert against $500 ceiling
+cost_alert_emails        = ["platform-eng@example.com", "hr-ops@example.com"]
+
+enable_storage = true
