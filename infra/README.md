@@ -43,6 +43,10 @@ supabase status                         # prints API_URL / ANON_KEY / SERVICE_RO
 
 Copy the keys into `infra/env/.env.dev` (gitignored) and source it from the app.
 
+## CI/CD
+
+Forge Shipping and GitHub Actions pipelines are defined in [`.forge/pipeline.yaml`](../.forge/pipeline.yaml) and [`.github/workflows/`](../.github/workflows/). See [docs/ci-cd/README.md](../docs/ci-cd/README.md) and [docs/ci-cd/ROLLBACK.md](../docs/ci-cd/ROLLBACK.md).
+
 ## Running the integration test
 
 ```bash

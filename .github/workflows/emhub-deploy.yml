@@ -1,0 +1,103 @@
+# Main-branch delivery pipeline — dev auto, staging after dev, prod gated (WO-003)
+name: EMHub Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: true
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    name: Build SPA bundle
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install and build
+        run: |
+          cd frontend && npm ci && npm run build
+      - id: meta
+        run: echo "version=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spa-dist-${{ github.sha }}
+          path: frontend/dist
+
+  deploy-dev:
+    name: Deploy to development
+    needs: build
+    if: github.event_name == 'push' || inputs.environment == 'development'
+    runs-on: ubuntu-latest
+    environment:
+      name: development
+      url: ${{ vars.EMHUB_DEV_URL }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: spa-dist-${{ github.sha }}
+          path: frontend/dist
+      - name: Deploy static assets
+        env:
+          DEPLOY_ENV: development
+          S3_BUCKET: ${{ secrets.EMHUB_DEV_S3_BUCKET }}
+          AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+        run: ./infra/scripts/deploy-static.sh
+
+  deploy-staging:
+    name: Deploy to staging
+    needs: deploy-dev
+    if: github.event_name == 'push' || inputs.environment == 'staging'
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: ${{ vars.EMHUB_STAGING_URL }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: spa-dist-${{ github.sha }}
+          path: frontend/dist
+      - name: Deploy static assets
+        env:
+          DEPLOY_ENV: staging
+          S3_BUCKET: ${{ secrets.EMHUB_STAGING_S3_BUCKET }}
+          AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+        run: ./infra/scripts/deploy-static.sh
+
+  deploy-production:
+    name: Deploy to production
+    needs: deploy-staging
+    if: github.event_name == 'workflow_dispatch' && inputs.environment == 'production'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.EMHUB_PROD_URL }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: spa-dist-${{ github.sha }}
+          path: frontend/dist
+      - name: Deploy static assets
+        env:
+          DEPLOY_ENV: production
+          S3_BUCKET: ${{ secrets.EMHUB_PROD_S3_BUCKET }}
+          AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+        run: ./infra/scripts/deploy-static.sh

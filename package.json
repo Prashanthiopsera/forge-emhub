@@ -10,7 +10,7 @@
     "preview": "npm run preview --prefix frontend",
     "lint": "npm run lint --prefix frontend",
     "format": "npm run format --prefix frontend",
-    "test": "npm run test --prefix frontend",
+    "test": "npm run test --prefix frontend && node --test infra/tests/pipeline-config.test.mjs",
     "test:watch": "npm run test:watch --prefix frontend",
     "test:integration": "./infra/scripts/integration-test.sh"
   },

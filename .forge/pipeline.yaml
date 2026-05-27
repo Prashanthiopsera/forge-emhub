@@ -1,0 +1,112 @@
+# Employee Onboarding Hub — Forge Shipping pipeline (WO-003)
+# Triggers on push to main; PR validation via .github/workflows/emhub-ci.yml
+name: emhub-spa-cicd
+engine: opsera
+webhook:
+  enabled: true
+  branch: main
+variables:
+  NODE_VERSION: "22"
+  FRONTEND_DIR: frontend
+  ARTIFACT_PATH: frontend/dist
+stages:
+  - id: validate
+    parallel: true
+    steps:
+      - name: secrets-scan
+        type: scan
+        config:
+          variantId: scan:gitleaks
+          scanCommand: gitleaks detect --source . --no-git --redact --report-format json
+          failOnBreach: fail
+      - name: code-scan
+        type: scan
+        config:
+          variantId: scan:semgrep
+          scanCommand: semgrep scan --config auto --error --json .
+          failOnBreach: warn
+      - name: dependency-scan
+        type: scan
+        connectorId: f8a5a020-d7bc-4604-a041-79e9cef31e99
+        connectorType: sonarqube
+        config:
+          variantId: scan:sonarqube
+          sonarProjectKey: emhub-spa
+          sonarSources: frontend/src
+          sonarExclusions: "**/node_modules/**,**/dist/**"
+          failOnBreach: warn
+  - id: test
+    steps:
+      - name: lint-and-unit-tests
+        type: test
+        config:
+          variantId: test:generic
+          testCommand: npm run lint && npm run test
+  - id: build
+    steps:
+      - name: build-spa
+        type: build
+        connectorId: 54465836-ca6f-4578-be84-8a625bbbe585
+        connectorType: github
+        config:
+          variantId: build:node
+          repoFullName: Prashanthiopsera/forge-emhub
+          branch: main
+          nodeVersion: "22"
+          buildCommand: cd frontend && npm ci && npm run build
+          artifactPath: frontend/dist
+  - id: publish
+    steps:
+      - name: upload-static-artifact
+        type: push
+        connectorId: 7f72e0cc-3e3a-4893-bc45-ef213e294b28
+        connectorType: aws
+        config:
+          variantId: push:s3
+          s3Bucket: "${EMHUB_DEV_S3_BUCKET}"
+          s3Prefix: "releases/${GIT_SHA_SHORT}/"
+          artifactSource: frontend/dist
+          region: us-east-1
+  - id: deploy-dev
+    environment: development
+    approvalRequired: false
+    steps:
+      - name: deploy-dev-static
+        type: deploy
+        connectorId: 7f72e0cc-3e3a-4893-bc45-ef213e294b28
+        connectorType: aws
+        config:
+          variantId: push:s3
+          s3Bucket: "${EMHUB_DEV_S3_BUCKET}"
+          s3Prefix: "current/"
+          artifactSource: frontend/dist
+          region: us-east-1
+  - id: deploy-staging
+    environment: staging
+    dependsOn: deploy-dev
+    approvalRequired: false
+    steps:
+      - name: deploy-staging-static
+        type: deploy
+        connectorId: 40718b17-a9bd-4d09-8929-368c4531a653
+        connectorType: gcp
+        config:
+          variantId: push:s3
+          s3Bucket: "${EMHUB_STAGING_S3_BUCKET}"
+          s3Prefix: "current/"
+          artifactSource: frontend/dist
+  - id: deploy-prod
+    environment: production
+    dependsOn: deploy-staging
+    approvalRequired: true
+    steps:
+      - name: deploy-prod-static
+        type: deploy
+        connectorId: 062b7e8c-c658-42ad-86b9-1f7cead28fcc
+        connectorType: azure
+        config:
+          variantId: deploy:azure_webapp
+          repoFullName: Prashanthiopsera/forge-emhub
+          branch: main
+          appName: "${EMHUB_PROD_WEBAPP_NAME}"
+          resourceGroup: "${EMHUB_PROD_RESOURCE_GROUP}"
