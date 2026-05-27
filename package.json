@@ -5,8 +5,13 @@
   "description": "Employee Onboarding Hub — Supabase + React",
   "type": "module",
   "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "preview": "npm run preview --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "format": "npm run format --prefix frontend",
+    "test": "npm run test --prefix frontend",
+    "test:watch": "npm run test:watch --prefix frontend",
     "test:integration": "./infra/scripts/integration-test.sh"
   },
   "devDependencies": {
