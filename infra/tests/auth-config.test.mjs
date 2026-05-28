@@ -30,5 +30,12 @@ describe('Auth migration and config (WO-008)', () => {
       assert.match(seed, new RegExp(`'${role}'`));
     }
     assert.match(seed, /hr\.admin@emhub\.local/);
+    assert.match(seed, /hr\.programs@emhub\.local/);
+  });
+
+  it('enables TOTP MFA enrollment and verification (WO-010)', () => {
+    assert.match(config, /\[auth\.mfa\.totp\]/);
+    assert.match(config, /enroll_enabled\s*=\s*true/);
+    assert.match(config, /verify_enabled\s*=\s*true/);
   });
 });

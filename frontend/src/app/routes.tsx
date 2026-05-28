@@ -7,6 +7,10 @@ import { ProtectedRoute, PublicAuthRoute } from '@/features/auth/ProtectedRoute'
 import { ResetPasswordPage } from '@/features/auth/ResetPasswordPage';
 import { RoleRestrictedRoute } from '@/features/auth/RoleRestrictedRoute';
 import { SignupPage } from '@/features/auth/SignupPage';
+import { MfaEnrollPage } from '@/features/auth/mfa/MfaEnrollPage';
+import { MfaGate } from '@/features/auth/mfa/MfaGate';
+import { MfaVerifyPage } from '@/features/auth/mfa/MfaVerifyPage';
+import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { PlaceholderPage } from '@/features/placeholder/PlaceholderPage';
 import { WelcomePage } from '@/features/welcome/WelcomePage';
 
@@ -40,17 +44,12 @@ export function AppRoutes() {
       />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route element={<ProtectedRoute />}>
+        <Route path="/mfa/enroll" element={<MfaEnrollPage />} />
+        <Route path="/mfa/verify" element={<MfaVerifyPage />} />
+        <Route element={<MfaGate />}>
         <Route path="/forbidden" element={<ForbiddenPage />} />
         <Route element={<AppShell />}>
-          <Route
-            path="/dashboard"
-            element={
-              <PlaceholderPage
-                title="Dashboard"
-                description="Your personalized onboarding roadmap and timeline."
-              />
-            }
-          />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route
             path="/checklist"
             element={
@@ -128,6 +127,7 @@ export function AppRoutes() {
               }
             />
           </Route>
+        </Route>
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

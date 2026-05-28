@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth/AuthContext';
+import { resolvePostAuthPath } from '@/features/auth/mfa/postAuthPath';
 
 export function ProtectedRoute() {
   const { session, loading } = useAuth();
@@ -21,11 +23,35 @@ export function ProtectedRoute() {
 }
 
 export function PublicAuthRoute({ children }: { children: React.ReactElement }) {
-  const { session, loading } = useAuth();
+  const { session, role, loading } = useAuth();
   const location = useLocation();
   const from = (location.state as { from?: string } | null)?.from ?? '/dashboard';
+  const [redirectTo, setRedirectTo] = useState<string | null>(null);
+  const [resolving, setResolving] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    if (!session) {
+      setRedirectTo(null);
+      setResolving(false);
+      return;
+    }
+
+    let cancelled = false;
+    setResolving(true);
+
+    void resolvePostAuthPath(role, from).then((path) => {
+      if (!cancelled) {
+        setRedirectTo(path);
+        setResolving(false);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [session, role, from]);
+
+  if (loading || (session && resolving)) {
     return (
       <div className="flex min-h-screen items-center justify-center text-sm text-slate-600">
         Loading session…
@@ -33,8 +59,8 @@ export function PublicAuthRoute({ children }: { children: React.ReactElement }) 
     );
   }
 
-  if (session) {
-    return <Navigate to={from} replace />;
+  if (session && redirectTo) {
+    return <Navigate to={redirectTo} replace state={{ from }} />;
   }
 
   return children;

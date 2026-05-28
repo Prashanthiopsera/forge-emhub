@@ -59,6 +59,13 @@ enable_confirmations  = true
 enabled = true
 uri = "pg-functions://postgres/public/custom_access_token_hook"
 
+[auth.mfa]
+max_enrolled_factors = 10
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
 [edge_runtime]
 enabled = true
 policy  = "oneshot"

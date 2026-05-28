@@ -2,6 +2,9 @@ import { FormEvent, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthLayout } from '@/features/auth/AuthLayout';
 import { useAuth } from '@/features/auth/AuthContext';
+import { getRoleFromSession } from '@/features/auth/jwt';
+import { resolvePostAuthPath } from '@/features/auth/mfa/postAuthPath';
+import { getSupabase } from '@/lib/supabase';
 
 export function LoginPage() {
   const { signIn } = useAuth();
@@ -19,12 +22,17 @@ export function LoginPage() {
     setError(null);
     setSubmitting(true);
     const { error: signInError } = await signIn(email.trim(), password);
-    setSubmitting(false);
     if (signInError) {
+      setSubmitting(false);
       setError(signInError.message);
       return;
     }
-    navigate(from, { replace: true });
+
+    const { data: sessionData } = await getSupabase().auth.getSession();
+    const role = getRoleFromSession(sessionData.session);
+    const destination = await resolvePostAuthPath(role, from);
+    setSubmitting(false);
+    navigate(destination, { replace: true, state: destination === from ? undefined : { from } });
   }
 
   return (
@@ -88,8 +96,10 @@ export function LoginPage() {
         </button>
       </form>
       <p className="mt-4 text-center text-xs text-slate-500">
-        Dev seed: <span className="font-mono">hr.admin@emhub.local</span> /{' '}
+        Dev seed (HR Admin MFA): <span className="font-mono">hr.admin@emhub.local</span> /{' '}
         <span className="font-mono">EmhubDev123!</span>
+        <br />
+        Dev seed (HR Admin, no MFA yet): <span className="font-mono">hr.programs@emhub.local</span>
       </p>
     </AuthLayout>
   );
