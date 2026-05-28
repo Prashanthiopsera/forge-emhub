@@ -15,12 +15,20 @@ export function WelcomePage() {
           Tailwind CSS is active — this badge uses{' '}
           <span className="font-mono font-semibold">text-brand-700</span> utility classes.
         </p>
-        <Link
-          to="/dashboard"
-          className="mt-8 inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
-        >
-          Go to dashboard
-        </Link>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            to="/login"
+            className="inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+          >
+            Sign in
+          </Link>
+          <Link
+            to="/signup"
+            className="inline-flex items-center justify-center rounded-lg border border-brand-600 px-6 py-3 text-sm font-semibold text-brand-700 hover:bg-brand-50 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+          >
+            Create account
+          </Link>
+        </div>
       </main>
     </div>
   );

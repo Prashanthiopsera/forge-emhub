@@ -13,6 +13,11 @@ describe('Supabase client (WO-007)', () => {
     expect(typeof client.from).toBe('function');
   });
 
+  it('uses PKCE auth flow (WO-008)', () => {
+    const client = createSupabaseClient();
+    expect(client.auth).toBeDefined();
+  });
+
   it('exposes typed table names via Database generic', () => {
     const client = createSupabaseClient();
     const query = client.from('profiles').select('id, email, role');

@@ -9,6 +9,7 @@ let client: TypedSupabaseClient | null = null;
 export function createSupabaseClient(): TypedSupabaseClient {
   return createClient<Database>(getRequiredEnv('VITE_SUPABASE_URL'), getRequiredEnv('VITE_SUPABASE_ANON_KEY'), {
     auth: {
+      flowType: 'pkce',
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true,

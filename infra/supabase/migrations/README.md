@@ -16,6 +16,7 @@ supabase db reset       # applies migrations + seed.sql
 | --- | --- |
 | `20260528000000_core_schema.sql` | Core tables, indexes, FTS, audit triggers |
 | `20260528000001_row_level_security.sql` | RLS policies for four-role model (WO-006) |
+| `20260528000002_auth_jwt_role_claim.sql` | JWT `role` claim hook + signup profile trigger (WO-008) |
 
 ## Seed data
 

@@ -4,16 +4,14 @@ import { describe, expect, it } from 'vitest';
 import { WelcomePage } from './WelcomePage';
 
 describe('WelcomePage', () => {
-  it('renders welcome content and dashboard link', () => {
+  it('renders welcome content and auth links', () => {
     render(
       <MemoryRouter>
         <WelcomePage />
       </MemoryRouter>,
     );
     expect(screen.getByRole('heading', { name: 'Welcome aboard' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Go to dashboard' })).toHaveAttribute(
-      'href',
-      '/dashboard',
-    );
+    expect(screen.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/login');
+    expect(screen.getByRole('link', { name: 'Create account' })).toHaveAttribute('href', '/signup');
   });
 });
