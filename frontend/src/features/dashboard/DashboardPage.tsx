@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { SurveyPrompt } from '@/features/survey/SurveyPrompt';
 import {
   formatRoleLabel,
   formatStartDate,
@@ -13,6 +15,7 @@ function phaseLabel(phase: OnboardingPhase): string {
 
 export function DashboardPage() {
   const { data, loading, error } = useDashboardData();
+  const [surveyDismissed, setSurveyDismissed] = useState(false);
 
   if (loading) {
     return <p className="text-sm text-slate-600">Loading your dashboard…</p>;
@@ -49,6 +52,14 @@ export function DashboardPage() {
           </p>
         ) : null}
       </header>
+
+      {!surveyDismissed ? (
+        <SurveyPrompt
+          startDate={profile.startDate}
+          onDismiss={() => setSurveyDismissed(true)}
+          onSubmit={() => setSurveyDismissed(true)}
+        />
+      ) : null}
 
       <article
         className="rounded-xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 shadow-sm"
