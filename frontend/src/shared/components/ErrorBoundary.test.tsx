@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
+import * as monitoring from '@/lib/monitoring';
 import { ErrorBoundary } from './ErrorBoundary';
 
 function ThrowingChild(): never {
@@ -17,7 +18,7 @@ describe('ErrorBoundary', () => {
   });
 
   it('renders fallback UI when a child throws', () => {
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const reportError = vi.spyOn(monitoring, 'reportError').mockImplementation(() => undefined);
     render(
       <ErrorBoundary>
         <ThrowingChild />
@@ -25,6 +26,7 @@ describe('ErrorBoundary', () => {
     );
     expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(screen.getByText('Something went wrong')).toBeInTheDocument();
-    consoleError.mockRestore();
+    expect(reportError).toHaveBeenCalled();
+    reportError.mockRestore();
   });
 });

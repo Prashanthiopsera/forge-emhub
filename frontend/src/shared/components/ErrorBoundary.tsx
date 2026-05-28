@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { reportError } from '@/lib/monitoring';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -19,7 +20,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error('Uncaught application error:', error, errorInfo);
+    reportError(error, errorInfo.componentStack);
   }
 
   render(): ReactNode {
