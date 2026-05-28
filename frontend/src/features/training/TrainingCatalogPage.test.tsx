@@ -8,6 +8,20 @@ vi.mock('@/features/training/useTrainingProgress', () => ({
   useTrainingProgress: vi.fn(),
 }));
 
+vi.mock('@/features/auth/AuthContext', () => ({
+  useAuth: () => ({
+    user: { id: 'u1', email: 'test@emhub.local' },
+    session: null,
+    role: 'employee',
+    loading: false,
+    signIn: vi.fn(),
+    signUp: vi.fn(),
+    signOut: vi.fn(),
+    resetPasswordForEmail: vi.fn(),
+    updatePassword: vi.fn(),
+  }),
+}));
+
 import { useTrainingProgress } from '@/features/training/useTrainingProgress';
 
 const mockUseTrainingProgress = vi.mocked(useTrainingProgress);
