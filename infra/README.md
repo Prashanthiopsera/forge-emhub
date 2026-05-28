@@ -47,6 +47,10 @@ Copy the keys into `infra/env/.env.dev` (gitignored) and source it from the app.
 
 Forge Shipping and GitHub Actions pipelines are defined in [`.forge/pipeline.yaml`](../.forge/pipeline.yaml) and [`.github/workflows/`](../.github/workflows/). See [docs/ci-cd/README.md](../docs/ci-cd/README.md) and [docs/ci-cd/ROLLBACK.md](../docs/ci-cd/ROLLBACK.md).
 
+## CDN / WAF (Cloudflare)
+
+Edge delivery for the SPA is managed in [`cloudflare/`](./cloudflare/). See [`cloudflare/README.md`](./cloudflare/README.md) for apply steps and synthetic verification.
+
 ## Running the integration test
 
 ```bash

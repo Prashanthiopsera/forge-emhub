@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars (gitignored). Secrets via environment only.
+
+cloudflare_account_id = "your-cloudflare-account-id"
+zone_name             = "example.com"
+spa_hostname          = "onboarding.example.com"
+origin_hostname       = "emhub-dev.s3-website-us-east-1.amazonaws.com"
+environment           = "dev"
+rate_limit_requests_per_minute = 1000
+zone_plan             = "pro"

@@ -22,7 +22,7 @@ infra/env/.env.prod
 .env
 .env.local
 
-# Terraform
+# Terraform — Supabase
 infra/terraform/.terraform/
 infra/terraform/.terraform.lock.hcl
 infra/terraform/*.tfstate
@@ -32,6 +32,15 @@ infra/terraform/crash.log
 infra/terraform/crash.*.log
 infra/terraform/terraform.tfvars
 infra/terraform/backend.hcl
+
+# Terraform — Cloudflare
+infra/cloudflare/terraform/.terraform/
+infra/cloudflare/terraform/.terraform.lock.hcl
+infra/cloudflare/terraform/*.tfstate
+infra/cloudflare/terraform/*.tfstate.*
+infra/cloudflare/terraform/*.tfplan
+infra/cloudflare/terraform/terraform.tfvars
+infra/cloudflare/terraform/backend.hcl
 
 # Supabase CLI local artifacts
 infra/supabase/.branches/

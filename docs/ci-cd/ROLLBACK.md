@@ -17,7 +17,7 @@
    aws s3 sync "s3://${EMHUB_PROD_S3_BUCKET}/releases/${GOOD_SHA}/" \
      "s3://${EMHUB_PROD_S3_BUCKET}/current/" --delete
    ```
-4. Invalidate CDN cache for `index.html` and `/assets/*` (Cloudflare: Purge Everything or tagged purge).
+4. Invalidate CDN cache for `index.html` and `/assets/*` (Cloudflare dashboard **Caching → Purge**, or `curl -X POST` to the zone purge API). See [`infra/cloudflare/README.md`](../../infra/cloudflare/README.md).
 5. Verify: open production URL, hard-refresh, confirm build hash in network tab matches `${GOOD_SHA}`.
 
 **Expected duration:** 5–10 minutes.
