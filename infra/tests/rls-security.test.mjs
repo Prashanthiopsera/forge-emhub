@@ -9,7 +9,12 @@ const rls = readFileSync(join(root, 'supabase/migrations/20260528000001_row_leve
 const matrix = readFileSync(join(root, 'supabase/docs/rls-access-matrix.md'), 'utf8');
 const queries = readFileSync(join(root, 'supabase/tests/rls_role_queries.sql'), 'utf8');
 
-const ROLES = ['employee', 'manager', 'hr_admin', 'it_ops'];
+const ROLES = [
+  ['employee', /employee/i],
+  ['manager', /manager/i],
+  ['hr_admin', /hr\s*admin/i],
+  ['it_ops', /it\s*ops/i],
+];
 const TABLES = [
   'profiles',
   'task_progress',
@@ -25,8 +30,8 @@ const TABLES = [
 
 describe('RLS security test suite (WO-038)', () => {
   it('documents role matrix for all four roles', () => {
-    for (const role of ROLES) {
-      assert.match(matrix, new RegExp(role, 'i'), `matrix missing ${role}`);
+    for (const [role, pattern] of ROLES) {
+      assert.match(matrix, pattern, `matrix missing ${role}`);
     }
   });
 
