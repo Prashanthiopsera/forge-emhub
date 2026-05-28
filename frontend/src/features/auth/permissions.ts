@@ -16,6 +16,13 @@ export const ROUTE_ROLES: Record<string, readonly AppRole[]> = {
   '/chatbot': ['employee', 'manager', 'hr_admin', 'it_ops'],
   '/team-progress': ['manager', 'hr_admin'],
   '/admin': ['hr_admin'],
+  '/admin/training': ['hr_admin'],
+  '/admin/new-hire': ['hr_admin'],
+  '/admin/templates': ['hr_admin'],
+  '/admin/faq': ['hr_admin'],
+  '/admin/escalations': ['hr_admin'],
+  '/admin/audit': ['hr_admin'],
+  '/admin/offboard': ['hr_admin'],
   '/analytics': ['hr_admin'],
   '/provisioning': ['it_ops', 'hr_admin'],
 };
