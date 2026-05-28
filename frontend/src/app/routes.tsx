@@ -10,8 +10,11 @@ import { SignupPage } from '@/features/auth/SignupPage';
 import { MfaEnrollPage } from '@/features/auth/mfa/MfaEnrollPage';
 import { MfaGate } from '@/features/auth/mfa/MfaGate';
 import { MfaVerifyPage } from '@/features/auth/mfa/MfaVerifyPage';
+import { ChecklistPage } from '@/features/checklist/ChecklistPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
+import { FaqPage } from '@/features/faq/FaqPage';
 import { PlaceholderPage } from '@/features/placeholder/PlaceholderPage';
+import { TrainingCatalogPage } from '@/features/training/TrainingCatalogPage';
 import { WelcomePage } from '@/features/welcome/WelcomePage';
 
 export function AppRoutes() {
@@ -50,36 +53,15 @@ export function AppRoutes() {
         <Route path="/forbidden" element={<ForbiddenPage />} />
         <Route element={<AppShell />}>
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route
-            path="/checklist"
-            element={
-              <PlaceholderPage
-                title="Onboarding Checklist"
-                description="Track and complete your onboarding tasks."
-              />
-            }
-          />
-          <Route
-            path="/training"
-            element={
-              <PlaceholderPage title="Training" description="Required training videos and quizzes." />
-            }
-          />
+          <Route path="/checklist" element={<ChecklistPage />} />
+          <Route path="/training" element={<TrainingCatalogPage />} />
           <Route
             path="/org-chart"
             element={
               <PlaceholderPage title="Org Chart" description="Explore team structure and reporting lines." />
             }
           />
-          <Route
-            path="/faq"
-            element={
-              <PlaceholderPage
-                title="FAQ"
-                description="Searchable knowledge base for common onboarding questions."
-              />
-            }
-          />
+          <Route path="/faq" element={<FaqPage />} />
           <Route
             path="/chatbot"
             element={

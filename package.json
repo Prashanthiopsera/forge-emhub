@@ -10,7 +10,7 @@
     "preview": "npm run preview --prefix frontend",
     "lint": "npm run lint --prefix frontend",
     "format": "npm run format --prefix frontend",
-    "test": "npm run test --prefix frontend && node --test infra/tests/pipeline-config.test.mjs && node --test infra/cloudflare/tests/cloudflare-config.test.mjs && node --test infra/tests/schema-config.test.mjs && node --test infra/tests/rls-config.test.mjs && node --test infra/tests/auth-config.test.mjs && node --test infra/tests/dashboard-config.test.mjs",
+    "test": "npm run test --prefix frontend && node --test infra/tests/pipeline-config.test.mjs && node --test infra/cloudflare/tests/cloudflare-config.test.mjs && node --test infra/tests/schema-config.test.mjs && node --test infra/tests/rls-config.test.mjs && node --test infra/tests/auth-config.test.mjs && node --test infra/tests/dashboard-config.test.mjs && node --test infra/tests/checklist-config.test.mjs && node --test infra/tests/notifications-config.test.mjs && node --test infra/tests/training-config.test.mjs",
     "test:schema": "node --test infra/tests/schema-config.test.mjs",
     "test:schema:integration": "./infra/scripts/schema-migrate-test.sh",
     "gen:types": "./scripts/gen-types.sh",
