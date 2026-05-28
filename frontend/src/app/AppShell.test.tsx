@@ -4,6 +4,16 @@ import { describe, expect, it, vi } from 'vitest';
 import { AuthProvider } from '@/features/auth/AuthContext';
 import { AppShell } from './AppShell';
 
+vi.mock('@/features/chatbot/useChat', () => ({
+  useChat: vi.fn(() => ({
+    data: null,
+    loading: false,
+    sending: false,
+    error: null,
+    sendMessage: vi.fn(),
+  })),
+}));
+
 vi.mock('@/lib/supabase', () => ({
   getSupabase: () => ({
     auth: {
@@ -60,5 +70,8 @@ describe('AppShell', () => {
     expect(await screen.findByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
     expect(await screen.findByRole('link', { name: 'Admin' })).toBeInTheDocument();
     expect(await screen.findByRole('button', { name: /notifications/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('button', { name: 'Open onboarding assistant' }),
+    ).toBeInTheDocument();
   });
 });

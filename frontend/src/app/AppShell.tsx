@@ -1,7 +1,9 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/AuthContext';
 import { usePermissions } from '@/features/auth/usePermissions';
+import { ChatWidget } from '@/features/chatbot/ChatWidget';
 import { NotificationBell } from '@/features/notifications/NotificationBell';
+import { ProductTour } from '@/features/tour/ProductTour';
 
 export function AppShell() {
   const { user, role, signOut } = useAuth();
@@ -18,6 +20,7 @@ export function AppShell() {
       <nav
         className="w-56 shrink-0 border-r border-slate-200 bg-white p-4"
         aria-label="Main navigation"
+        role="navigation"
       >
         <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-slate-500">
           Onboarding Hub
@@ -27,6 +30,7 @@ export function AppShell() {
             <li key={item.to}>
               <NavLink
                 to={item.to}
+                data-tour-nav={item.to}
                 className={({ isActive }) =>
                   [
                     'block rounded-md px-3 py-2 text-sm font-medium transition-colors',
@@ -62,10 +66,12 @@ export function AppShell() {
             </button>
           </div>
         </header>
-        <main className="flex-1 p-6">
+        <main id="main-content" className="flex-1 p-6" role="main">
           <Outlet />
         </main>
       </div>
+      <ChatWidget />
+      <ProductTour />
     </div>
   );
 }
