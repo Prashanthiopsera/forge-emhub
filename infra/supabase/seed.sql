@@ -83,12 +83,13 @@ INSERT INTO public.onboarding_templates (id, name, target_role, target_departmen
   ('t1000000-0000-4000-8000-000000000003', 'All Departments — Day 1 Essentials', 'employee', NULL, true)
 ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO public.template_tasks (id, template_id, title, phase_name, sort_order) VALUES
-  ('tt100000-0000-4000-8000-00000000001', 't1000000-0000-4000-8000-000000000001', 'Complete security training', 'Day 1', 1),
-  ('tt100000-0000-4000-8000-00000000002', 't1000000-0000-4000-8000-000000000001', 'Set up development environment', 'Week 1', 1),
-  ('tt100000-0000-4000-8000-00000000003', 't1000000-0000-4000-8000-000000000003', 'Meet your manager', 'Day 1', 2),
-  ('tt100000-0000-4000-8000-00000000004', 't1000000-0000-4000-8000-000000000001', 'Shadow a team standup', 'Week 1', 2),
-  ('tt100000-0000-4000-8000-00000000005', 't1000000-0000-4000-8000-000000000001', 'Complete 30-day goals review', 'Month 1', 1)
+INSERT INTO public.template_tasks (id, template_id, title, phase_name, sort_order, due_date_offset_days, auto_complete, auto_complete_event) VALUES
+  ('tt100000-0000-4000-8000-00000000001', 't1000000-0000-4000-8000-000000000001', 'Complete security training', 'Day 1', 1, 0, true, 'video_complete:m1000000-0000-4000-8000-000000000002'),
+  ('tt100000-0000-4000-8000-00000000002', 't1000000-0000-4000-8000-000000000001', 'Set up development environment', 'Week 1', 1, 7, false, NULL),
+  ('tt100000-0000-4000-8000-00000000003', 't1000000-0000-4000-8000-000000000003', 'Meet your manager', 'Day 1', 2, 0, false, NULL),
+  ('tt100000-0000-4000-8000-00000000004', 't1000000-0000-4000-8000-000000000001', 'Shadow a team standup', 'Week 1', 2, 5, false, NULL),
+  ('tt100000-0000-4000-8000-00000000005', 't1000000-0000-4000-8000-000000000001', 'Complete 30-day goals review', 'Month 1', 1, 28, false, NULL),
+  ('tt100000-0000-4000-8000-00000000006', 't1000000-0000-4000-8000-000000000003', 'Complete product tour', 'Day 1', 3, 0, true, 'tour_complete')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.faq_categories (id, name, slug) VALUES
@@ -146,10 +147,11 @@ INSERT INTO public.faq_articles (id, category_id, title, body, published, review
    'Does the company offer a 401(k) match?', 'Yes. We match 100% of contributions up to 4% of salary after 90 days of employment.', true, now())
 ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO public.org_chart_nodes (id, department_id, user_id, display_name, job_title, email) VALUES
-  ('o1000000-0000-4000-8000-000000000001', 'd1000000-0000-4000-8000-000000000002', 'u1000000-0000-4000-8000-000000000020', 'Maria Santos', 'HR Director', 'hr.admin@emhub.local'),
-  ('o1000000-0000-4000-8000-000000000002', 'd1000000-0000-4000-8000-000000000001', 'u1000000-0000-4000-8000-000000000010', 'Morgan Blake', 'Engineering Manager', 'mgr.engineering@emhub.local'),
-  ('o1000000-0000-4000-8000-000000000003', 'd1000000-0000-4000-8000-000000000001', 'u1000000-0000-4000-8000-000000000001', 'Alex Chen', 'Software Engineer', 'alex.newhire@emhub.local')
+INSERT INTO public.org_chart_nodes (id, department_id, user_id, display_name, job_title, email, manager_node_id) VALUES
+  ('o1000000-0000-4000-8000-000000000001', 'd1000000-0000-4000-8000-000000000002', 'u1000000-0000-4000-8000-000000000020', 'Maria Santos', 'HR Director', 'hr.admin@emhub.local', NULL),
+  ('o1000000-0000-4000-8000-000000000002', 'd1000000-0000-4000-8000-000000000001', 'u1000000-0000-4000-8000-000000000010', 'Morgan Blake', 'Engineering Manager', 'mgr.engineering@emhub.local', 'o1000000-0000-4000-8000-000000000001'),
+  ('o1000000-0000-4000-8000-000000000003', 'd1000000-0000-4000-8000-000000000001', 'u1000000-0000-4000-8000-000000000001', 'Alex Chen', 'Software Engineer', 'alex.newhire@emhub.local', 'o1000000-0000-4000-8000-000000000002'),
+  ('o1000000-0000-4000-8000-000000000004', 'd1000000-0000-4000-8000-000000000003', 'u1000000-0000-4000-8000-000000000030', 'Chris Ortiz', 'IT Operations Lead', 'it.ops@emhub.local', 'o1000000-0000-4000-8000-000000000001')
 ON CONFLICT (id) DO NOTHING;
 
 -- WO-011: Personalized dashboard seed for alex.newhire (demo employee)
@@ -188,7 +190,7 @@ INSERT INTO public.task_progress (id, plan_id, template_task_id, user_id, status
     'tt100000-0000-4000-8000-00000000002',
     'u1000000-0000-4000-8000-000000000001',
     'in_progress',
-    CURRENT_DATE + 7,
+    CURRENT_DATE,
     NULL
   ),
   (
@@ -206,7 +208,7 @@ INSERT INTO public.task_progress (id, plan_id, template_task_id, user_id, status
     'tt100000-0000-4000-8000-00000000004',
     'u1000000-0000-4000-8000-000000000001',
     'pending',
-    CURRENT_DATE + 5,
+    CURRENT_DATE + 1,
     NULL
   ),
   (
@@ -215,14 +217,23 @@ INSERT INTO public.task_progress (id, plan_id, template_task_id, user_id, status
     'tt100000-0000-4000-8000-00000000005',
     'u1000000-0000-4000-8000-000000000001',
     'pending',
-    CURRENT_DATE + 28,
+    CURRENT_DATE - 4,
+    NULL
+  ),
+  (
+    'tp100000-0000-4000-8000-00000000006',
+    'p1000000-0000-4000-8000-000000000002',
+    'tt100000-0000-4000-8000-00000000006',
+    'u1000000-0000-4000-8000-000000000001',
+    'pending',
+    CURRENT_DATE - 1,
     NULL
   )
 ON CONFLICT (id) DO NOTHING;
 
 -- WO-016: Training video catalog seed (5 modules, mixed progress for alex.newhire)
 INSERT INTO public.training_modules (
-  id, title, description, category, video_provider, video_external_id, duration_seconds, required
+  id, title, description, category, video_provider, video_external_id, duration_seconds, required, display_order
 ) VALUES
   (
     'm1000000-0000-4000-8000-000000000001',
@@ -232,7 +243,8 @@ INSERT INTO public.training_modules (
     'vimeo',
     '76979871',
     600,
-    true
+    true,
+    1
   ),
   (
     'm1000000-0000-4000-8000-000000000002',
@@ -242,7 +254,8 @@ INSERT INTO public.training_modules (
     'wistia',
     'delib3hsz3',
     480,
-    true
+    true,
+    2
   ),
   (
     'm1000000-0000-4000-8000-000000000003',
@@ -252,7 +265,8 @@ INSERT INTO public.training_modules (
     'vimeo',
     '148751763',
     720,
-    true
+    true,
+    3
   ),
   (
     'm1000000-0000-4000-8000-000000000004',
@@ -262,7 +276,8 @@ INSERT INTO public.training_modules (
     'wistia',
     '5qxpj8z2lc',
     540,
-    true
+    true,
+    4
   ),
   (
     'm1000000-0000-4000-8000-000000000005',
@@ -272,7 +287,8 @@ INSERT INTO public.training_modules (
     'vimeo',
     '357126023',
     360,
-    false
+    false,
+    5
   )
 ON CONFLICT (id) DO NOTHING;
 
@@ -297,6 +313,90 @@ INSERT INTO public.video_progress (id, module_id, user_id, watched_seconds, comp
     'u1000000-0000-4000-8000-000000000001',
     72,
     false
+  )
+ON CONFLICT (id) DO NOTHING;
+
+-- WO-017: Quiz for Secure Your Workspace training module
+INSERT INTO public.quizzes (id, module_id, title, pass_score, active) VALUES
+  (
+    'q1000000-0000-4000-8000-000000000001',
+    'm1000000-0000-4000-8000-000000000002',
+    'Security Training Quiz',
+    80,
+    true
+  )
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO public.quiz_questions (id, quiz_id, prompt, sort_order, choices, correct_index) VALUES
+  (
+    'qq100000-0000-4000-8000-00000000001',
+    'q1000000-0000-4000-8000-000000000001',
+    'What should you enable on all company devices?',
+    1,
+    '["MFA", "Guest Wi-Fi sharing", "Public file sync"]'::jsonb,
+    0
+  ),
+  (
+    'qq100000-0000-4000-8000-00000000002',
+    'q1000000-0000-4000-8000-000000000001',
+    'How should you handle sensitive customer data?',
+    2,
+    '["Store in personal cloud drives", "Encrypt at rest and in transit", "Share via public links"]'::jsonb,
+    1
+  ),
+  (
+    'qq100000-0000-4000-8000-00000000003',
+    'q1000000-0000-4000-8000-000000000001',
+    'Who should you contact if you suspect a phishing email?',
+    3,
+    '["IT Operations", "Any external vendor", "No one — ignore it"]'::jsonb,
+    0
+  )
+ON CONFLICT (id) DO NOTHING;
+
+-- WO-020: Sample chatbot conversations for alex.newhire
+INSERT INTO public.chat_sessions (id, user_id, status, escalated) VALUES
+  (
+    'cs100000-0000-4000-8000-000000000001',
+    'u1000000-0000-4000-8000-000000000001',
+    'open',
+    false
+  ),
+  (
+    'cs100000-0000-4000-8000-000000000002',
+    'u1000000-0000-4000-8000-000000000002',
+    'open', true
+  )
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO public.chat_messages (id, session_id, sender_type, message_text, confidence_score) VALUES
+  (
+    'cm100000-0000-4000-8000-00000000001',
+    'cs100000-0000-4000-8000-000000000001',
+    'user',
+    'Where can I find my onboarding checklist?',
+    NULL
+  ),
+  (
+    'cm100000-0000-4000-8000-00000000002',
+    'cs100000-0000-4000-8000-000000000001',
+    'bot',
+    'Open the Checklist page from the sidebar to view tasks assigned to your role.',
+    0.9200
+  ),
+  (
+    'cm100000-0000-4000-8000-00000000003',
+    'cs100000-0000-4000-8000-000000000001',
+    'user',
+    'When does benefits enrollment start?',
+    NULL
+  ),
+  (
+    'cm100000-0000-4000-8000-00000000004',
+    'cs100000-0000-4000-8000-000000000001',
+    'bot',
+    'Enrollment opens on your start date and remains open for 30 days. See the FAQ for plan details.',
+    0.8800
   )
 ON CONFLICT (id) DO NOTHING;
 
@@ -341,6 +441,42 @@ INSERT INTO public.notifications (id, user_id, channel, target_role, status, pay
     NULL,
     'sent',
     '{"title": "Laptop provisioning queue", "body": "3 devices are waiting for shipment confirmation.", "type": "provisioning"}'::jsonb
+  ),
+  (
+    'n1000000-0000-4000-8000-000000000021',
+    NULL,
+    'in_app',
+    'it_ops',
+    'pending',
+    '{"title": "VPN profile — Jordan Lee", "body": "Create VPN access for jordan.newhire@emhub.local.", "type": "provisioning"}'::jsonb
+  ),
+  (
+    'n1000000-0000-4000-8000-000000000022',
+    NULL,
+    'in_app',
+    'it_ops',
+    'sent',
+    '{"title": "Badge activation batch", "body": "Activate building badges for 4 new hires in Engineering.", "type": "provisioning"}'::jsonb
+  )
+ON CONFLICT (id) DO NOTHING;
+
+-- WO-022: Escalated chat messages for HR queue (jordan.newhire; session cs…002 seeded above)
+INSERT INTO public.chat_messages (id, session_id, sender_type, message_text, confidence_score, metadata) VALUES
+  (
+    'cm100000-0000-4000-8000-000000000010',
+    'cs100000-0000-4000-8000-000000000002',
+    'user',
+    'I need help with my relocation stipend',
+    NULL,
+    '{}'::jsonb
+  ),
+  (
+    'cm100000-0000-4000-8000-000000000011',
+    'cs100000-0000-4000-8000-000000000002',
+    'bot',
+    'I could not find a matching FAQ article. This is an automated assistant stub.',
+    0.25,
+    '{"source": "llm_stub"}'::jsonb
   )
 ON CONFLICT (id) DO NOTHING;
 

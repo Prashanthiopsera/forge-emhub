@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '@/features/auth/AuthContext';
+import {
+  autoCompleteTask,
+  buildVideoCompleteEvent,
+} from '@/features/checklist/autoComplete';
 import { buildTrainingFixture } from '@/features/training/training.fixtures';
 import { isVideoCompleted, mergeModuleProgress } from '@/features/training/training.logic';
 import type {
@@ -161,6 +165,9 @@ export function useTrainingProgress() {
       setSaving(true);
       try {
         await upsertVideoProgress(user.id, { ...module, watchedSeconds, completed }, watchedSeconds);
+        if (completed && data.source === 'supabase') {
+          await autoCompleteTask(user.id, buildVideoCompleteEvent(moduleId));
+        }
       } catch (err) {
         const message = err instanceof Error ? err.message : 'Failed to save progress';
         setError(message);
