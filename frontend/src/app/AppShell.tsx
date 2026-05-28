@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/AuthContext';
 import { usePermissions } from '@/features/auth/usePermissions';
+import { NotificationBell } from '@/features/notifications/NotificationBell';
 
 export function AppShell() {
   const { user, role, signOut } = useAuth();
@@ -45,6 +46,7 @@ export function AppShell() {
         <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
           <h1 className="text-lg font-semibold text-slate-900">Employee Onboarding Hub</h1>
           <div className="flex items-center gap-3 text-sm text-slate-600">
+            <NotificationBell />
             {role ? (
               <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium uppercase text-slate-700">
                 {role.replace('_', ' ')}

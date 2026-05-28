@@ -24,6 +24,26 @@ vi.mock('@/lib/supabase', () => ({
       resetPasswordForEmail: vi.fn(),
       updateUser: vi.fn(),
     },
+    from: (table: string) => {
+      if (table === 'notifications') {
+        return {
+          select: () => ({
+            eq: () => ({
+              eq: () => ({
+                order: () => ({
+                  limit: vi.fn().mockResolvedValue({ data: null, error: null }),
+                }),
+              }),
+            }),
+          }),
+        };
+      }
+      throw new Error(`Unexpected table: ${table}`);
+    },
+    channel: () => ({
+      on: () => ({ subscribe: vi.fn() }),
+    }),
+    removeChannel: vi.fn(),
   }),
 }));
 
@@ -39,5 +59,6 @@ describe('AppShell', () => {
     expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument();
     expect(await screen.findByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
     expect(await screen.findByRole('link', { name: 'Admin' })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: /notifications/i })).toBeInTheDocument();
   });
 });
