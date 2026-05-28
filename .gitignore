@@ -21,6 +21,7 @@ infra/env/.env.staging
 infra/env/.env.prod
 .env
 .env.local
+frontend/.env.local
 
 # Terraform — Supabase
 infra/terraform/.terraform/

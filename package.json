@@ -13,6 +13,7 @@
     "test": "npm run test --prefix frontend && node --test infra/tests/pipeline-config.test.mjs && node --test infra/cloudflare/tests/cloudflare-config.test.mjs && node --test infra/tests/schema-config.test.mjs && node --test infra/tests/rls-config.test.mjs",
     "test:schema": "node --test infra/tests/schema-config.test.mjs",
     "test:schema:integration": "./infra/scripts/schema-migrate-test.sh",
+    "gen:types": "./scripts/gen-types.sh",
     "test:watch": "npm run test:watch --prefix frontend",
     "test:integration": "./infra/scripts/integration-test.sh"
   },
