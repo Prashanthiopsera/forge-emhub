@@ -113,6 +113,37 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['notifications']['Row']>;
         Relationships: [];
       };
+      chat_sessions: {
+        Row: {
+          id: string;
+          user_id: string;
+          status: string;
+          escalated: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['chat_sessions']['Row']> & { user_id: string };
+        Update: Partial<Database['public']['Tables']['chat_sessions']['Row']>;
+        Relationships: [];
+      };
+      chat_messages: {
+        Row: {
+          id: string;
+          session_id: string;
+          sender_type: 'user' | 'bot' | 'hr';
+          message_text: string;
+          confidence_score: number | null;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['chat_messages']['Row']> & {
+          session_id: string;
+          sender_type: 'user' | 'bot' | 'hr';
+          message_text: string;
+        };
+        Update: Partial<Database['public']['Tables']['chat_messages']['Row']>;
+        Relationships: [];
+      };
       training_modules: {
         Row: {
           id: string;
@@ -144,6 +175,56 @@ export interface Database {
           user_id: string;
         };
         Update: Partial<Database['public']['Tables']['video_progress']['Row']>;
+        Relationships: [];
+      };
+      onboarding_templates: {
+        Row: {
+          id: string;
+          name: string;
+          target_role: string | null;
+          target_department: string | null;
+          active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['onboarding_templates']['Row']> & { name: string };
+        Update: Partial<Database['public']['Tables']['onboarding_templates']['Row']>;
+        Relationships: [];
+      };
+      template_tasks: {
+        Row: {
+          id: string;
+          template_id: string;
+          title: string;
+          phase_name: string;
+          sort_order: number;
+          auto_complete: boolean;
+          auto_complete_event: string | null;
+          required: boolean;
+          created_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['template_tasks']['Row']> & {
+          template_id: string;
+          title: string;
+        };
+        Update: Partial<Database['public']['Tables']['template_tasks']['Row']>;
+        Relationships: [];
+      };
+      onboarding_plans: {
+        Row: {
+          id: string;
+          user_id: string;
+          template_id: string;
+          status: 'active' | 'completed' | 'cancelled';
+          created_at: string;
+          completed_at: string | null;
+          updated_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['onboarding_plans']['Row']> & {
+          user_id: string;
+          template_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['onboarding_plans']['Row']>;
         Relationships: [];
       };
     };

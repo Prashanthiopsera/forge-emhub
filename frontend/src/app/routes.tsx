@@ -12,8 +12,22 @@ import { MfaGate } from '@/features/auth/mfa/MfaGate';
 import { MfaVerifyPage } from '@/features/auth/mfa/MfaVerifyPage';
 import { ChecklistPage } from '@/features/checklist/ChecklistPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
+import { AnalyticsPage } from '@/features/analytics/AnalyticsPage';
+import { AdminPage } from '@/features/admin/AdminPage';
+import { AuditPage } from '@/features/audit/AuditPage';
+import { OffboardPage } from '@/features/offboard/OffboardPage';
+import { NewHirePage } from '@/features/new-hire/NewHirePage';
+import { TrainingAdminPage } from '@/features/training-admin/TrainingAdminPage';
+import { ChatbotPage } from '@/features/chatbot/ChatbotPage';
+import { EscalationsPage } from '@/features/escalations/EscalationsPage';
+import { FaqAdminPage } from '@/features/faq-admin/FaqAdminPage';
 import { FaqPage } from '@/features/faq/FaqPage';
+import { ManagerDashboardPage } from '@/features/manager/ManagerDashboardPage';
 import { PlaceholderPage } from '@/features/placeholder/PlaceholderPage';
+import { TemplateManagementPage } from '@/features/templates/TemplateManagementPage';
+import { ProvisioningPage } from '@/features/provisioning/ProvisioningPage';
+import { OrgChartPage } from '@/features/org-chart/OrgChartPage';
+import { QuizPage } from '@/features/training/QuizPage';
 import { TrainingCatalogPage } from '@/features/training/TrainingCatalogPage';
 import { WelcomePage } from '@/features/welcome/WelcomePage';
 
@@ -55,59 +69,28 @@ export function AppRoutes() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/checklist" element={<ChecklistPage />} />
           <Route path="/training" element={<TrainingCatalogPage />} />
-          <Route
-            path="/org-chart"
-            element={
-              <PlaceholderPage title="Org Chart" description="Explore team structure and reporting lines." />
-            }
-          />
+          <Route path="/org-chart" element={<OrgChartPage />} />
+          <Route path="/training/:moduleId/quiz" element={<QuizPage />} />
           <Route path="/faq" element={<FaqPage />} />
-          <Route
-            path="/chatbot"
-            element={
-              <PlaceholderPage title="AI Assistant" description="24/7 onboarding assistant for instant answers." />
-            }
-          />
+          <Route path="/chatbot" element={<ChatbotPage />} />
           <Route element={<RoleRestrictedRoute path="/team-progress" />}>
-            <Route
-              path="/team-progress"
-              element={
-                <PlaceholderPage
-                  title="Team Progress"
-                  description="Track onboarding progress for your direct reports."
-                />
-              }
-            />
+            <Route path="/team-progress" element={<ManagerDashboardPage />} />
           </Route>
           <Route element={<RoleRestrictedRoute path="/admin" />}>
-            <Route
-              path="/admin"
-              element={
-                <PlaceholderPage title="Admin" description="HR administrator tools and content management." />
-              }
-            />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin/training" element={<TrainingAdminPage />} />
+            <Route path="/admin/new-hire" element={<NewHirePage />} />
+            <Route path="/admin/templates" element={<TemplateManagementPage />} />
+            <Route path="/admin/faq" element={<FaqAdminPage />} />
+            <Route path="/admin/escalations" element={<EscalationsPage />} />
+            <Route path="/admin/audit" element={<AuditPage />} />
+            <Route path="/admin/offboard" element={<OffboardPage />} />
           </Route>
           <Route element={<RoleRestrictedRoute path="/analytics" />}>
-            <Route
-              path="/analytics"
-              element={
-                <PlaceholderPage
-                  title="Analytics"
-                  description="Organization-wide onboarding metrics and compliance reporting."
-                />
-              }
-            />
+            <Route path="/analytics" element={<AnalyticsPage />} />
           </Route>
           <Route element={<RoleRestrictedRoute path="/provisioning" />}>
-            <Route
-              path="/provisioning"
-              element={
-                <PlaceholderPage
-                  title="Provisioning Tasks"
-                  description="IT onboarding tasks: accounts, hardware, and access requests."
-                />
-              }
-            />
+            <Route path="/provisioning" element={<ProvisioningPage />} />
           </Route>
         </Route>
         </Route>

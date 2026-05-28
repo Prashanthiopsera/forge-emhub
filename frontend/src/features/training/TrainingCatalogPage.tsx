@@ -1,4 +1,8 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '@/features/auth/AuthContext';
+import { isEligibleForCertificate } from '@/features/training/certificate.logic';
+import { downloadModuleCertificate } from '@/features/training/downloadCertificate';
 import {
   completionPercent,
   filterModulesByCategory,
@@ -18,6 +22,7 @@ function completionLabel(module: CatalogModule): string {
 }
 
 export function TrainingCatalogPage() {
+  const { user } = useAuth();
   const { data, loading, error, saving, updateModuleProgress } = useTrainingProgress();
   const [category, setCategory] = useState<CategoryFilter>('all');
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -73,9 +78,11 @@ export function TrainingCatalogPage() {
         ) : null}
       </header>
 
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
+      <fieldset className="flex flex-wrap gap-2 border-0 p-0">
+        <legend className="sr-only">Filter by category</legend>
         <button
           type="button"
+          aria-pressed={category === 'all'}
           onClick={() => setCategory('all')}
           className={[
             'rounded-full px-3 py-1 text-sm font-medium',
@@ -90,6 +97,7 @@ export function TrainingCatalogPage() {
           <button
             key={item}
             type="button"
+            aria-pressed={category === item}
             onClick={() => setCategory(item)}
             className={[
               'rounded-full px-3 py-1 text-sm font-medium',
@@ -101,7 +109,7 @@ export function TrainingCatalogPage() {
             {item}
           </button>
         ))}
-      </div>
+      </fieldset>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
         <ul className="space-y-3" aria-label="Training modules">
@@ -192,6 +200,36 @@ export function TrainingCatalogPage() {
               <p className="mt-3 text-xs text-slate-500">
                 Videos are marked complete after watching at least 90% of the runtime.
               </p>
+              {selectedModule.id === 'm1000000-0000-4000-8000-000000000002' ? (
+                <p className="mt-3">
+                  <Link
+                    to={`/training/${selectedModule.id}/quiz`}
+                    className="text-sm font-medium text-brand-700 hover:underline"
+                  >
+                    Take the security quiz →
+                  </Link>
+                </p>
+              ) : null}
+              {isEligibleForCertificate(
+                selectedModule,
+                selectedModule.id === 'm1000000-0000-4000-8000-000000000002' ? false : null,
+              ) ? (
+                <p className="mt-3">
+                  <button
+                    type="button"
+                    className="rounded-lg border border-brand-600 px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
+                    onClick={() =>
+                      downloadModuleCertificate(
+                        selectedModule,
+                        user?.email?.split('@')[0] ?? 'Employee',
+                        user?.id ?? 'demo-user',
+                      )
+                    }
+                  >
+                    Download completion certificate (PDF)
+                  </button>
+                </p>
+              ) : null}
             </>
           ) : (
             <p className="text-sm text-slate-600">Select a module to start watching.</p>
