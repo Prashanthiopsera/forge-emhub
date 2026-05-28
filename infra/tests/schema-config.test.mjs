@@ -32,11 +32,13 @@ describe('Core schema migration (WO-005)', () => {
 });
 
 describe('Seed script (WO-005)', () => {
-  it('seeds departments, users, templates, FAQ, and org chart', () => {
+  it('seeds departments, users, templates, FAQ, org chart, and training', () => {
     assert.match(seed, /INSERT INTO public\.departments/);
     assert.match(seed, /INSERT INTO public\.onboarding_templates/);
     assert.match(seed, /INSERT INTO public\.faq_articles/);
     assert.match(seed, /INSERT INTO public\.org_chart_nodes/);
+    assert.match(seed, /INSERT INTO public\.training_modules/);
+    assert.match(seed, /INSERT INTO public\.video_progress/);
   });
 
   it('seed file exists and config references it', () => {
