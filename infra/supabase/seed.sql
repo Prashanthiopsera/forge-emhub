@@ -107,4 +107,54 @@ INSERT INTO public.org_chart_nodes (id, department_id, user_id, display_name, jo
   ('o1000000-0000-4000-8000-000000000003', 'd1000000-0000-4000-8000-000000000001', 'u1000000-0000-4000-8000-000000000001', 'Alex Chen', 'Software Engineer', 'alex.newhire@emhub.local')
 ON CONFLICT (id) DO NOTHING;
 
+-- WO-011: Personalized dashboard seed for alex.newhire (demo employee)
+UPDATE public.profiles
+SET job_title = 'Software Engineer'
+WHERE id = 'u1000000-0000-4000-8000-000000000001'::uuid;
+
+INSERT INTO public.onboarding_plans (id, user_id, template_id, status) VALUES
+  (
+    'p1000000-0000-4000-8000-000000000001',
+    'u1000000-0000-4000-8000-000000000001',
+    't1000000-0000-4000-8000-000000000001',
+    'active'
+  ),
+  (
+    'p1000000-0000-4000-8000-000000000002',
+    'u1000000-0000-4000-8000-000000000001',
+    't1000000-0000-4000-8000-000000000003',
+    'active'
+  )
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO public.task_progress (id, plan_id, template_task_id, user_id, status, due_at, completed_at) VALUES
+  (
+    'tp100000-0000-4000-8000-00000000001',
+    'p1000000-0000-4000-8000-000000000001',
+    'tt100000-0000-4000-8000-00000000001',
+    'u1000000-0000-4000-8000-000000000001',
+    'completed',
+    CURRENT_DATE,
+    now()
+  ),
+  (
+    'tp100000-0000-4000-8000-00000000002',
+    'p1000000-0000-4000-8000-000000000001',
+    'tt100000-0000-4000-8000-00000000002',
+    'u1000000-0000-4000-8000-000000000001',
+    'in_progress',
+    CURRENT_DATE + 7,
+    NULL
+  ),
+  (
+    'tp100000-0000-4000-8000-00000000003',
+    'p1000000-0000-4000-8000-000000000002',
+    'tt100000-0000-4000-8000-00000000003',
+    'u1000000-0000-4000-8000-000000000001',
+    'pending',
+    CURRENT_DATE,
+    NULL
+  )
+ON CONFLICT (id) DO NOTHING;
+
 COMMIT;
