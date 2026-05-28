@@ -10,7 +10,8 @@
     "preview": "npm run preview --prefix frontend",
     "lint": "npm run lint --prefix frontend",
     "format": "npm run format --prefix frontend",
-    "test": "npm run test --prefix frontend && node --test infra/tests/pipeline-config.test.mjs && node --test infra/cloudflare/tests/cloudflare-config.test.mjs && node --test infra/tests/schema-config.test.mjs && node --test infra/tests/rls-config.test.mjs && node --test infra/tests/auth-config.test.mjs && node --test infra/tests/dashboard-config.test.mjs && node --test infra/tests/checklist-config.test.mjs && node --test infra/tests/notifications-config.test.mjs && node --test infra/tests/training-config.test.mjs && node --test infra/tests/auto-complete-config.test.mjs && node --test infra/tests/quiz-config.test.mjs && node --test infra/tests/chatbot-config.test.mjs && node --test infra/tests/org-chart-config.test.mjs && node --test infra/tests/escalations-config.test.mjs && node --test infra/tests/faq-admin-config.test.mjs && node --test infra/tests/provisioning-config.test.mjs && node --test infra/tests/templates-config.test.mjs && node --test infra/tests/manager-config.test.mjs && node --test infra/tests/analytics-config.test.mjs && node --test infra/tests/tour-config.test.mjs && node --test infra/tests/compliance-config.test.mjs && node --test infra/tests/training-admin-config.test.mjs && node --test infra/tests/new-hire-config.test.mjs && node --test infra/tests/apm-config.test.mjs",
+    "test": "npm run test --prefix frontend && node --test infra/tests/pipeline-config.test.mjs infra/tests/schema-config.test.mjs infra/tests/rls-config.test.mjs infra/tests/rls-security.test.mjs infra/tests/auth-config.test.mjs infra/tests/dashboard-config.test.mjs infra/tests/checklist-config.test.mjs infra/tests/notifications-config.test.mjs infra/tests/training-config.test.mjs infra/tests/auto-complete-config.test.mjs infra/tests/quiz-config.test.mjs infra/tests/chatbot-config.test.mjs infra/tests/org-chart-config.test.mjs infra/tests/escalations-config.test.mjs infra/tests/faq-admin-config.test.mjs infra/tests/provisioning-config.test.mjs infra/tests/templates-config.test.mjs infra/tests/manager-config.test.mjs infra/tests/analytics-config.test.mjs infra/tests/tour-config.test.mjs infra/tests/compliance-config.test.mjs infra/tests/training-admin-config.test.mjs infra/tests/new-hire-config.test.mjs infra/tests/apm-config.test.mjs && node --test infra/cloudflare/tests/cloudflare-config.test.mjs",
+    "test:e2e": "playwright test",
     "test:schema": "node --test infra/tests/schema-config.test.mjs",
     "test:schema:integration": "./infra/scripts/schema-migrate-test.sh",
     "gen:types": "./scripts/gen-types.sh",
@@ -18,6 +19,7 @@
     "test:integration": "./infra/scripts/integration-test.sh"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.0",
     "vitest": "^2.1.4"
   }
 }
