@@ -1,18 +1,10 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/AuthContext';
-
-const navItems = [
-  { to: '/dashboard', label: 'Dashboard' },
-  { to: '/checklist', label: 'Checklist' },
-  { to: '/training', label: 'Training' },
-  { to: '/org-chart', label: 'Org Chart' },
-  { to: '/faq', label: 'FAQ' },
-  { to: '/chatbot', label: 'Chatbot' },
-  { to: '/admin', label: 'Admin' },
-] as const;
+import { usePermissions } from '@/features/auth/usePermissions';
 
 export function AppShell() {
   const { user, role, signOut } = useAuth();
+  const { navigationItems } = usePermissions();
   const navigate = useNavigate();
 
   async function handleSignOut() {
@@ -30,7 +22,7 @@ export function AppShell() {
           Onboarding Hub
         </p>
         <ul className="space-y-1">
-          {navItems.map((item) => (
+          {navigationItems.map((item) => (
             <li key={item.to}>
               <NavLink
                 to={item.to}

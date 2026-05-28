@@ -37,7 +37,7 @@ describe('AppShell', () => {
       </MemoryRouter>,
     );
     expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Admin' })).toBeInTheDocument();
+    expect(await screen.findByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
+    expect(await screen.findByRole('link', { name: 'Admin' })).toBeInTheDocument();
   });
 });
