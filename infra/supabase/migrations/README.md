@@ -15,6 +15,7 @@ supabase db reset       # applies migrations + seed.sql
 | Migration | Description |
 | --- | --- |
 | `20260528000000_core_schema.sql` | Core tables, indexes, FTS, audit triggers |
+| `20260528000001_row_level_security.sql` | RLS policies for four-role model (WO-006) |
 
 ## Seed data
 
