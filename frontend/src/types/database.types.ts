@@ -65,6 +65,21 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['task_progress']['Row']>;
         Relationships: [];
       };
+      faq_categories: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          active: boolean;
+          created_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['faq_categories']['Row']> & {
+          name: string;
+          slug: string;
+        };
+        Update: Partial<Database['public']['Tables']['faq_categories']['Row']>;
+        Relationships: [];
+      };
       faq_articles: {
         Row: {
           id: string;
@@ -96,6 +111,39 @@ export interface Database {
         };
         Insert: Partial<Database['public']['Tables']['notifications']['Row']> & { channel: string };
         Update: Partial<Database['public']['Tables']['notifications']['Row']>;
+        Relationships: [];
+      };
+      training_modules: {
+        Row: {
+          id: string;
+          title: string;
+          description: string | null;
+          category: string;
+          video_provider: string | null;
+          video_external_id: string | null;
+          duration_seconds: number | null;
+          required: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['training_modules']['Row']> & { title: string };
+        Update: Partial<Database['public']['Tables']['training_modules']['Row']>;
+        Relationships: [];
+      };
+      video_progress: {
+        Row: {
+          id: string;
+          module_id: string;
+          user_id: string;
+          watched_seconds: number;
+          completed: boolean;
+          updated_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['video_progress']['Row']> & {
+          module_id: string;
+          user_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['video_progress']['Row']>;
         Relationships: [];
       };
     };
