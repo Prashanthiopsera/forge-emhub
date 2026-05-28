@@ -47,6 +47,16 @@ Copy the keys into `infra/env/.env.dev` (gitignored) and source it from the app.
 
 Forge Shipping and GitHub Actions pipelines are defined in [`.forge/pipeline.yaml`](../.forge/pipeline.yaml) and [`.github/workflows/`](../.github/workflows/). See [docs/ci-cd/README.md](../docs/ci-cd/README.md) and [docs/ci-cd/ROLLBACK.md](../docs/ci-cd/ROLLBACK.md).
 
+## Database schema
+
+Core PostgreSQL schema and seed data live under [`supabase/`](./supabase/). See [`supabase/migrations/README.md`](./supabase/migrations/README.md).
+
+```bash
+cd infra/supabase && supabase db reset   # migrations + seed
+npm run test:schema                    # static SQL checks
+npm run test:schema:integration          # requires Supabase CLI
+```
+
 ## CDN / WAF (Cloudflare)
 
 Edge delivery for the SPA is managed in [`cloudflare/`](./cloudflare/). See [`cloudflare/README.md`](./cloudflare/README.md) for apply steps and synthetic verification.

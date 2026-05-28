@@ -59,3 +59,7 @@ enable_confirmations  = false
 enabled = true
 policy  = "oneshot"
 inspector_port = 8083
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
