@@ -14,10 +14,10 @@ describe('completeTourChecklistTask (WO-029)', () => {
   it('delegates to auto_complete_tasks_for_event with tour_complete', async () => {
     mockAutoComplete.mockResolvedValue({ updatedCount: 1, error: null });
 
-    const result = await completeTourChecklistTask('u1000000-0000-4000-8000-000000000001');
+    const result = await completeTourChecklistTask('a1000000-0000-4000-8000-000000000001');
 
     expect(mockAutoComplete).toHaveBeenCalledWith(
-      'u1000000-0000-4000-8000-000000000001',
+      'a1000000-0000-4000-8000-000000000001',
       TOUR_COMPLETE_EVENT,
     );
     expect(result.error).toBeNull();

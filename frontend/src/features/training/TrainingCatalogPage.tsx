@@ -200,7 +200,7 @@ export function TrainingCatalogPage() {
               <p className="mt-3 text-xs text-slate-500">
                 Videos are marked complete after watching at least 90% of the runtime.
               </p>
-              {selectedModule.id === 'm1000000-0000-4000-8000-000000000002' ? (
+              {selectedModule.id === 'e1000000-0000-4000-8000-000000000002' ? (
                 <p className="mt-3">
                   <Link
                     to={`/training/${selectedModule.id}/quiz`}
@@ -212,7 +212,7 @@ export function TrainingCatalogPage() {
               ) : null}
               {isEligibleForCertificate(
                 selectedModule,
-                selectedModule.id === 'm1000000-0000-4000-8000-000000000002' ? false : null,
+                selectedModule.id === 'e1000000-0000-4000-8000-000000000002' ? false : null,
               ) ? (
                 <p className="mt-3">
                   <button

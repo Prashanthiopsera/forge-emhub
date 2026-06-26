@@ -15,7 +15,7 @@ const migration = readFileSync(
   'utf8',
 );
 
-const alexId = 'u1000000-0000-4000-8000-000000000001';
+const alexId = 'a1000000-0000-4000-8000-000000000001';
 
 describe('Training seed and wiring (WO-016)', () => {
   it('adds catalog columns for training modules', () => {
@@ -26,7 +26,7 @@ describe('Training seed and wiring (WO-016)', () => {
   it('seeds five training modules and video progress for alex.newhire', () => {
     assert.match(seed, /INSERT INTO public\.training_modules/);
     assert.match(seed, /INSERT INTO public\.video_progress/);
-    assert.match(seed, /m1000000-0000-4000-8000-000000000001/);
+    assert.match(seed, /e1000000-0000-4000-8000-000000000001/);
     assert.match(seed, /vimeo/);
     assert.match(seed, /wistia/);
     assert.match(seed, new RegExp(alexId));

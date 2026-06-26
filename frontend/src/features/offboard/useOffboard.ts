@@ -4,7 +4,7 @@ import { getSupabase } from '@/lib/supabase';
 
 const FIXTURE_EMPLOYEES: OffboardEmployee[] = [
   {
-    id: 'u1000000-0000-4000-8000-000000000099',
+    id: 'a1000000-0000-4000-8000-000000000099',
     fullName: 'Jordan Lee (offboarded)',
     email: 'jordan.offboard@emhub.local',
     offboardedAt: null,

@@ -22,35 +22,37 @@ BEGIN
 
   FOR u IN
     SELECT * FROM (VALUES
-      ('u1000000-0000-4000-8000-000000000001', 'alex.newhire@emhub.local', 'Alex Chen', 'employee'),
-      ('u1000000-0000-4000-8000-000000000002', 'jordan.newhire@emhub.local', 'Jordan Lee', 'employee'),
-      ('u1000000-0000-4000-8000-000000000003', 'sam.newhire@emhub.local', 'Sam Rivera', 'employee'),
-      ('u1000000-0000-4000-8000-000000000004', 'taylor.newhire@emhub.local', 'Taylor Kim', 'employee'),
-      ('u1000000-0000-4000-8000-000000000005', 'casey.newhire@emhub.local', 'Casey Morgan', 'employee'),
-      ('u1000000-0000-4000-8000-000000000006', 'riley.newhire@emhub.local', 'Riley Nguyen', 'employee'),
-      ('u1000000-0000-4000-8000-000000000007', 'avery.newhire@emhub.local', 'Avery Brooks', 'employee'),
-      ('u1000000-0000-4000-8000-000000000008', 'quinn.newhire@emhub.local', 'Quinn Adams', 'employee'),
-      ('u1000000-0000-4000-8000-000000000009', 'drew.newhire@emhub.local', 'Drew Patel', 'employee'),
-      ('u1000000-0000-4000-8000-00000000000a', 'blake.newhire@emhub.local', 'Blake Turner', 'employee'),
-      ('u1000000-0000-4000-8000-00000000000b', 'cameron.newhire@emhub.local', 'Cameron Diaz', 'employee'),
-      ('u1000000-0000-4000-8000-00000000000c', 'skyler.newhire@emhub.local', 'Skyler Reed', 'employee'),
-      ('u1000000-0000-4000-8000-000000000010', 'mgr.engineering@emhub.local', 'Morgan Blake', 'manager'),
-      ('u1000000-0000-4000-8000-000000000011', 'mgr.product@emhub.local', 'Riley Park', 'manager'),
-      ('u1000000-0000-4000-8000-000000000012', 'mgr.platform@emhub.local', 'Jamie Fox', 'manager'),
-      ('u1000000-0000-4000-8000-000000000020', 'hr.admin@emhub.local', 'Maria Santos', 'hr_admin'),
-      ('u1000000-0000-4000-8000-000000000021', 'hr.programs@emhub.local', 'Priya Nair', 'hr_admin'),
-      ('u1000000-0000-4000-8000-000000000030', 'it.ops@emhub.local', 'Chris Ortiz', 'it_ops'),
-      ('u1000000-0000-4000-8000-000000000031', 'it.provisioning@emhub.local', 'Dana Wells', 'it_ops'),
-      ('u1000000-0000-4000-8000-000000000032', 'pat.employee@emhub.local', 'Pat Ellis', 'employee')
+      ('a1000000-0000-4000-8000-000000000001', 'alex.newhire@emhub.local', 'Alex Chen', 'employee'),
+      ('a1000000-0000-4000-8000-000000000002', 'jordan.newhire@emhub.local', 'Jordan Lee', 'employee'),
+      ('a1000000-0000-4000-8000-000000000003', 'sam.newhire@emhub.local', 'Sam Rivera', 'employee'),
+      ('a1000000-0000-4000-8000-000000000004', 'taylor.newhire@emhub.local', 'Taylor Kim', 'employee'),
+      ('a1000000-0000-4000-8000-000000000005', 'casey.newhire@emhub.local', 'Casey Morgan', 'employee'),
+      ('a1000000-0000-4000-8000-000000000006', 'riley.newhire@emhub.local', 'Riley Nguyen', 'employee'),
+      ('a1000000-0000-4000-8000-000000000007', 'avery.newhire@emhub.local', 'Avery Brooks', 'employee'),
+      ('a1000000-0000-4000-8000-000000000008', 'quinn.newhire@emhub.local', 'Quinn Adams', 'employee'),
+      ('a1000000-0000-4000-8000-000000000009', 'drew.newhire@emhub.local', 'Drew Patel', 'employee'),
+      ('a1000000-0000-4000-8000-00000000000a', 'blake.newhire@emhub.local', 'Blake Turner', 'employee'),
+      ('a1000000-0000-4000-8000-00000000000b', 'cameron.newhire@emhub.local', 'Cameron Diaz', 'employee'),
+      ('a1000000-0000-4000-8000-00000000000c', 'skyler.newhire@emhub.local', 'Skyler Reed', 'employee'),
+      ('a1000000-0000-4000-8000-000000000010', 'mgr.engineering@emhub.local', 'Morgan Blake', 'manager'),
+      ('a1000000-0000-4000-8000-000000000011', 'mgr.product@emhub.local', 'Riley Park', 'manager'),
+      ('a1000000-0000-4000-8000-000000000012', 'mgr.platform@emhub.local', 'Jamie Fox', 'manager'),
+      ('a1000000-0000-4000-8000-000000000020', 'hr.admin@emhub.local', 'Maria Santos', 'hr_admin'),
+      ('a1000000-0000-4000-8000-000000000021', 'hr.programs@emhub.local', 'Priya Nair', 'hr_admin'),
+      ('a1000000-0000-4000-8000-000000000030', 'it.ops@emhub.local', 'Chris Ortiz', 'it_ops'),
+      ('a1000000-0000-4000-8000-000000000031', 'it.provisioning@emhub.local', 'Dana Wells', 'it_ops'),
+      ('a1000000-0000-4000-8000-000000000032', 'pat.employee@emhub.local', 'Pat Ellis', 'employee')
     ) AS t(id, email, full_name, role)
   LOOP
     INSERT INTO auth.users (
       instance_id, id, aud, role, email, encrypted_password,
       email_confirmed_at, created_at, updated_at,
+      confirmation_token, recovery_token, email_change_token_new, email_change,
       raw_app_meta_data, raw_user_meta_data
     ) VALUES (
       inst_id, u.id::uuid, 'authenticated', 'authenticated', u.email,
       crypt('EmhubDev123!', gen_salt('bf')), now(), now(), now(),
+      '', '', '', '',
       '{"provider":"email","providers":["email"]}'::jsonb,
       jsonb_build_object('full_name', u.full_name)
     ) ON CONFLICT (id) DO NOTHING;
@@ -73,23 +75,23 @@ BEGIN
     ) ON CONFLICT (id) DO NOTHING;
   END LOOP;
 
-  UPDATE public.profiles SET manager_id = 'u1000000-0000-4000-8000-000000000010'::uuid
+  UPDATE public.profiles SET manager_id = 'a1000000-0000-4000-8000-000000000010'::uuid
     WHERE role = 'employee' AND department_id = 'd1000000-0000-4000-8000-000000000004'::uuid;
 END $$;
 
 INSERT INTO public.onboarding_templates (id, name, target_role, target_department, active) VALUES
-  ('t1000000-0000-4000-8000-000000000001', 'Engineering IC — Standard', 'employee', 'Engineering', true),
-  ('t1000000-0000-4000-8000-000000000002', 'Product IC — Standard', 'employee', 'Product', true),
-  ('t1000000-0000-4000-8000-000000000003', 'All Departments — Day 1 Essentials', 'employee', NULL, true)
+  ('b1000000-0000-4000-8000-000000000001', 'Engineering IC — Standard', 'employee', 'Engineering', true),
+  ('b1000000-0000-4000-8000-000000000002', 'Product IC — Standard', 'employee', 'Product', true),
+  ('b1000000-0000-4000-8000-000000000003', 'All Departments — Day 1 Essentials', 'employee', NULL, true)
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.template_tasks (id, template_id, title, phase_name, sort_order, due_date_offset_days, auto_complete, auto_complete_event) VALUES
-  ('tt100000-0000-4000-8000-00000000001', 't1000000-0000-4000-8000-000000000001', 'Complete security training', 'Day 1', 1, 0, true, 'video_complete:m1000000-0000-4000-8000-000000000002'),
-  ('tt100000-0000-4000-8000-00000000002', 't1000000-0000-4000-8000-000000000001', 'Set up development environment', 'Week 1', 1, 7, false, NULL),
-  ('tt100000-0000-4000-8000-00000000003', 't1000000-0000-4000-8000-000000000003', 'Meet your manager', 'Day 1', 2, 0, false, NULL),
-  ('tt100000-0000-4000-8000-00000000004', 't1000000-0000-4000-8000-000000000001', 'Shadow a team standup', 'Week 1', 2, 5, false, NULL),
-  ('tt100000-0000-4000-8000-00000000005', 't1000000-0000-4000-8000-000000000001', 'Complete 30-day goals review', 'Month 1', 1, 28, false, NULL),
-  ('tt100000-0000-4000-8000-00000000006', 't1000000-0000-4000-8000-000000000003', 'Complete product tour', 'Day 1', 3, 0, true, 'tour_complete')
+  ('c1000000-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000001', 'Complete security training', 'Day 1', 1, 0, true, 'video_complete:e1000000-0000-4000-8000-000000000002'),
+  ('c1000000-0000-4000-8000-000000000002', 'b1000000-0000-4000-8000-000000000001', 'Set up development environment', 'Week 1', 1, 7, false, NULL),
+  ('c1000000-0000-4000-8000-000000000003', 'b1000000-0000-4000-8000-000000000003', 'Meet your manager', 'Day 1', 2, 0, false, NULL),
+  ('c1000000-0000-4000-8000-000000000004', 'b1000000-0000-4000-8000-000000000001', 'Shadow a team standup', 'Week 1', 2, 5, false, NULL),
+  ('c1000000-0000-4000-8000-000000000005', 'b1000000-0000-4000-8000-000000000001', 'Complete 30-day goals review', 'Month 1', 1, 28, false, NULL),
+  ('c1000000-0000-4000-8000-000000000006', 'b1000000-0000-4000-8000-000000000003', 'Complete product tour', 'Day 1', 3, 0, true, 'tour_complete')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.faq_categories (id, name, slug) VALUES
@@ -101,130 +103,130 @@ INSERT INTO public.faq_categories (id, name, slug) VALUES
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.faq_articles (id, category_id, title, body, published, reviewed_at) VALUES
-  ('fa100000-0000-4000-8000-00000000001', 'f1000000-0000-4000-8000-000000000001',
+  ('fa100000-0000-4000-8000-000000000001', 'f1000000-0000-4000-8000-000000000001',
    'When does benefits enrollment start?', 'Enrollment opens on your start date and remains open for 30 days.', true, now()),
-  ('fa100000-0000-4000-8000-00000000002', 'f1000000-0000-4000-8000-000000000002',
+  ('fa100000-0000-4000-8000-000000000002', 'f1000000-0000-4000-8000-000000000002',
    'How do I request laptop provisioning?', 'Submit a ticket via the IT portal linked in your onboarding checklist.', true, now()),
-  ('fa100000-0000-4000-8000-00000000003', 'f1000000-0000-4000-8000-000000000001',
+  ('fa100000-0000-4000-8000-000000000003', 'f1000000-0000-4000-8000-000000000001',
    'What health plans are available?', 'We offer PPO, HMO, and high-deductible plans with HSA options. Compare plans in the benefits portal.', true, now()),
-  ('fa100000-0000-4000-8000-00000000004', 'f1000000-0000-4000-8000-000000000001',
+  ('fa100000-0000-4000-8000-000000000004', 'f1000000-0000-4000-8000-000000000001',
    'How do I add dependents to my coverage?', 'Add dependents during initial enrollment or within 30 days of a qualifying life event.', true, now()),
-  ('fa100000-0000-4000-8000-00000000005', 'f1000000-0000-4000-8000-000000000001',
+  ('fa100000-0000-4000-8000-000000000005', 'f1000000-0000-4000-8000-000000000001',
    'When does dental and vision coverage begin?', 'Dental and vision coverage start on the first day of the month following your start date.', true, now()),
-  ('fa100000-0000-4000-8000-00000000006', 'f1000000-0000-4000-8000-000000000002',
+  ('fa100000-0000-4000-8000-000000000006', 'f1000000-0000-4000-8000-000000000002',
    'How do I set up multi-factor authentication?', 'MFA is required for all employees. Enroll from your profile security settings or during first login.', true, now()),
-  ('fa100000-0000-4000-8000-00000000007', 'f1000000-0000-4000-8000-000000000002',
+  ('fa100000-0000-4000-8000-000000000007', 'f1000000-0000-4000-8000-000000000002',
    'Which Wi-Fi network should I use in the office?', 'Connect to EmHub-Corp using your corporate credentials. Guest Wi-Fi is for visitors only.', true, now()),
-  ('fa100000-0000-4000-8000-00000000008', 'f1000000-0000-4000-8000-000000000002',
+  ('fa100000-0000-4000-8000-000000000008', 'f1000000-0000-4000-8000-000000000002',
    'How do I install approved software?', 'Use the self-service software catalog in the IT portal. Admin rights are not required for catalog apps.', true, now()),
-  ('fa100000-0000-4000-8000-00000000009', 'f1000000-0000-4000-8000-000000000003',
+  ('fa100000-0000-4000-8000-000000000009', 'f1000000-0000-4000-8000-000000000003',
    'Where is my onboarding checklist?', 'Open the Checklist page from the sidebar to view tasks assigned to your role and department.', true, now()),
-  ('fa100000-0000-4000-8000-0000000000a', 'f1000000-0000-4000-8000-000000000003',
+  ('fa100000-0000-4000-8000-00000000000a', 'f1000000-0000-4000-8000-000000000003',
    'Who is my onboarding buddy?', 'Your buddy is listed in your welcome email and on the Dashboard under your manager contact.', true, now()),
-  ('fa100000-0000-4000-8000-0000000000b', 'f1000000-0000-4000-8000-000000000003',
+  ('fa100000-0000-4000-8000-00000000000b', 'f1000000-0000-4000-8000-000000000003',
    'What training is required in week one?', 'Complete security awareness, code of conduct, and role-specific modules listed under Training.', true, now()),
-  ('fa100000-0000-4000-8000-0000000000c', 'f1000000-0000-4000-8000-000000000003',
+  ('fa100000-0000-4000-8000-00000000000c', 'f1000000-0000-4000-8000-000000000003',
    'How do I schedule a 30-day check-in?', 'Your manager will send a calendar invite. You can also request one via the onboarding checklist.', true, now()),
-  ('fa100000-0000-4000-8000-0000000000d', 'f1000000-0000-4000-8000-000000000004',
+  ('fa100000-0000-4000-8000-00000000000d', 'f1000000-0000-4000-8000-000000000004',
    'When is my first paycheck?', 'Payroll runs biweekly on Fridays. Your first paycheck arrives on the second pay date after start.', true, now()),
-  ('fa100000-0000-4000-8000-0000000000e', 'f1000000-0000-4000-8000-000000000004',
+  ('fa100000-0000-4000-8000-00000000000e', 'f1000000-0000-4000-8000-000000000004',
    'How do I set up direct deposit?', 'Add your bank details in the payroll self-service portal within your first week.', true, now()),
-  ('fa100000-0000-4000-8000-0000000000f', 'f1000000-0000-4000-8000-000000000004',
+  ('fa100000-0000-4000-8000-00000000000f', 'f1000000-0000-4000-8000-000000000004',
    'Where can I download pay stubs?', 'Pay stubs are available in the payroll portal under Documents after each pay period closes.', true, now()),
-  ('fa100000-0000-4000-8000-00000000010', 'f1000000-0000-4000-8000-000000000004',
+  ('fa100000-0000-4000-8000-000000000010', 'f1000000-0000-4000-8000-000000000004',
    'How are expense reimbursements processed?', 'Submit expenses through the finance portal. Approved reimbursements appear on the next payroll cycle.', true, now()),
-  ('fa100000-0000-4000-8000-00000000011', 'f1000000-0000-4000-8000-000000000005',
+  ('fa100000-0000-4000-8000-000000000011', 'f1000000-0000-4000-8000-000000000005',
    'What is the remote work policy?', 'Hybrid employees may work remotely up to three days per week with manager approval.', true, now()),
-  ('fa100000-0000-4000-8000-00000000012', 'f1000000-0000-4000-8000-000000000005',
+  ('fa100000-0000-4000-8000-000000000012', 'f1000000-0000-4000-8000-000000000005',
    'How much PTO do new hires receive?', 'New hires accrue 15 days of PTO per year, prorated from your start date.', true, now()),
-  ('fa100000-0000-4000-8000-00000000013', 'f1000000-0000-4000-8000-000000000005',
+  ('fa100000-0000-4000-8000-000000000013', 'f1000000-0000-4000-8000-000000000005',
    'What is the dress code?', 'Business casual is the default. Client-facing meetings may require business attire.', true, now()),
-  ('fa100000-0000-4000-8000-00000000014', 'f1000000-0000-4000-8000-000000000005',
+  ('fa100000-0000-4000-8000-000000000014', 'f1000000-0000-4000-8000-000000000005',
    'How do I report a workplace concern?', 'Contact HR confidentially via the ethics hotline or your People Operations partner.', true, now()),
-  ('fa100000-0000-4000-8000-00000000015', 'f1000000-0000-4000-8000-000000000002',
+  ('fa100000-0000-4000-8000-000000000015', 'f1000000-0000-4000-8000-000000000002',
    'How do I reset my corporate password?', 'Use the self-service password reset link on the login page or contact IT Ops for assistance.', true, now()),
-  ('fa100000-0000-4000-8000-00000000016', 'f1000000-0000-4000-8000-000000000001',
+  ('fa100000-0000-4000-8000-000000000016', 'f1000000-0000-4000-8000-000000000001',
    'Does the company offer a 401(k) match?', 'Yes. We match 100% of contributions up to 4% of salary after 90 days of employment.', true, now())
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.org_chart_nodes (id, department_id, user_id, display_name, job_title, email, manager_node_id) VALUES
-  ('o1000000-0000-4000-8000-000000000001', 'd1000000-0000-4000-8000-000000000002', 'u1000000-0000-4000-8000-000000000020', 'Maria Santos', 'HR Director', 'hr.admin@emhub.local', NULL),
-  ('o1000000-0000-4000-8000-000000000002', 'd1000000-0000-4000-8000-000000000001', 'u1000000-0000-4000-8000-000000000010', 'Morgan Blake', 'Engineering Manager', 'mgr.engineering@emhub.local', 'o1000000-0000-4000-8000-000000000001'),
-  ('o1000000-0000-4000-8000-000000000003', 'd1000000-0000-4000-8000-000000000001', 'u1000000-0000-4000-8000-000000000001', 'Alex Chen', 'Software Engineer', 'alex.newhire@emhub.local', 'o1000000-0000-4000-8000-000000000002'),
-  ('o1000000-0000-4000-8000-000000000004', 'd1000000-0000-4000-8000-000000000003', 'u1000000-0000-4000-8000-000000000030', 'Chris Ortiz', 'IT Operations Lead', 'it.ops@emhub.local', 'o1000000-0000-4000-8000-000000000001')
+  ('c2000000-0000-4000-8000-000000000001', 'd1000000-0000-4000-8000-000000000002', 'a1000000-0000-4000-8000-000000000020', 'Maria Santos', 'HR Director', 'hr.admin@emhub.local', NULL),
+  ('c2000000-0000-4000-8000-000000000002', 'd1000000-0000-4000-8000-000000000001', 'a1000000-0000-4000-8000-000000000010', 'Morgan Blake', 'Engineering Manager', 'mgr.engineering@emhub.local', 'c2000000-0000-4000-8000-000000000001'),
+  ('c2000000-0000-4000-8000-000000000003', 'd1000000-0000-4000-8000-000000000001', 'a1000000-0000-4000-8000-000000000001', 'Alex Chen', 'Software Engineer', 'alex.newhire@emhub.local', 'c2000000-0000-4000-8000-000000000002'),
+  ('c2000000-0000-4000-8000-000000000004', 'd1000000-0000-4000-8000-000000000003', 'a1000000-0000-4000-8000-000000000030', 'Chris Ortiz', 'IT Operations Lead', 'it.ops@emhub.local', 'c2000000-0000-4000-8000-000000000001')
 ON CONFLICT (id) DO NOTHING;
 
 -- WO-011: Personalized dashboard seed for alex.newhire (demo employee)
 UPDATE public.profiles
 SET job_title = 'Software Engineer'
-WHERE id = 'u1000000-0000-4000-8000-000000000001'::uuid;
+WHERE id = 'a1000000-0000-4000-8000-000000000001'::uuid;
 
 INSERT INTO public.onboarding_plans (id, user_id, template_id, status) VALUES
   (
-    'p1000000-0000-4000-8000-000000000001',
-    'u1000000-0000-4000-8000-000000000001',
-    't1000000-0000-4000-8000-000000000001',
+    'a2000000-0000-4000-8000-000000000001',
+    'a1000000-0000-4000-8000-000000000001',
+    'b1000000-0000-4000-8000-000000000001',
     'active'
   ),
   (
-    'p1000000-0000-4000-8000-000000000002',
-    'u1000000-0000-4000-8000-000000000001',
-    't1000000-0000-4000-8000-000000000003',
+    'a2000000-0000-4000-8000-000000000002',
+    'a1000000-0000-4000-8000-000000000001',
+    'b1000000-0000-4000-8000-000000000003',
     'active'
   )
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.task_progress (id, plan_id, template_task_id, user_id, status, due_at, completed_at) VALUES
   (
-    'tp100000-0000-4000-8000-00000000001',
-    'p1000000-0000-4000-8000-000000000001',
-    'tt100000-0000-4000-8000-00000000001',
-    'u1000000-0000-4000-8000-000000000001',
+    'b3000000-0000-4000-8000-000000000001',
+    'a2000000-0000-4000-8000-000000000001',
+    'c1000000-0000-4000-8000-000000000001',
+    'a1000000-0000-4000-8000-000000000001',
     'completed',
     CURRENT_DATE,
     now()
   ),
   (
-    'tp100000-0000-4000-8000-00000000002',
-    'p1000000-0000-4000-8000-000000000001',
-    'tt100000-0000-4000-8000-00000000002',
-    'u1000000-0000-4000-8000-000000000001',
+    'b3000000-0000-4000-8000-000000000002',
+    'a2000000-0000-4000-8000-000000000001',
+    'c1000000-0000-4000-8000-000000000002',
+    'a1000000-0000-4000-8000-000000000001',
     'in_progress',
     CURRENT_DATE,
     NULL
   ),
   (
-    'tp100000-0000-4000-8000-00000000003',
-    'p1000000-0000-4000-8000-000000000002',
-    'tt100000-0000-4000-8000-00000000003',
-    'u1000000-0000-4000-8000-000000000001',
+    'b3000000-0000-4000-8000-000000000003',
+    'a2000000-0000-4000-8000-000000000002',
+    'c1000000-0000-4000-8000-000000000003',
+    'a1000000-0000-4000-8000-000000000001',
     'pending',
     CURRENT_DATE - 3,
     NULL
   ),
   (
-    'tp100000-0000-4000-8000-00000000004',
-    'p1000000-0000-4000-8000-000000000001',
-    'tt100000-0000-4000-8000-00000000004',
-    'u1000000-0000-4000-8000-000000000001',
+    'b3000000-0000-4000-8000-000000000004',
+    'a2000000-0000-4000-8000-000000000001',
+    'c1000000-0000-4000-8000-000000000004',
+    'a1000000-0000-4000-8000-000000000001',
     'pending',
     CURRENT_DATE + 1,
     NULL
   ),
   (
-    'tp100000-0000-4000-8000-00000000005',
-    'p1000000-0000-4000-8000-000000000001',
-    'tt100000-0000-4000-8000-00000000005',
-    'u1000000-0000-4000-8000-000000000001',
+    'b3000000-0000-4000-8000-000000000005',
+    'a2000000-0000-4000-8000-000000000001',
+    'c1000000-0000-4000-8000-000000000005',
+    'a1000000-0000-4000-8000-000000000001',
     'pending',
     CURRENT_DATE - 4,
     NULL
   ),
   (
-    'tp100000-0000-4000-8000-00000000006',
-    'p1000000-0000-4000-8000-000000000002',
-    'tt100000-0000-4000-8000-00000000006',
-    'u1000000-0000-4000-8000-000000000001',
+    'b3000000-0000-4000-8000-000000000006',
+    'a2000000-0000-4000-8000-000000000002',
+    'c1000000-0000-4000-8000-000000000006',
+    'a1000000-0000-4000-8000-000000000001',
     'pending',
     CURRENT_DATE - 1,
     NULL
@@ -236,7 +238,7 @@ INSERT INTO public.training_modules (
   id, title, description, category, video_provider, video_external_id, duration_seconds, required, display_order
 ) VALUES
   (
-    'm1000000-0000-4000-8000-000000000001',
+    'e1000000-0000-4000-8000-000000000001',
     'Welcome to Our Culture',
     'Learn about our mission, values, and how teams collaborate across the company.',
     'Company Culture',
@@ -247,7 +249,7 @@ INSERT INTO public.training_modules (
     1
   ),
   (
-    'm1000000-0000-4000-8000-000000000002',
+    'e1000000-0000-4000-8000-000000000002',
     'Secure Your Workspace',
     'Set up MFA, device encryption, and safe handling of company data.',
     'IT Setup',
@@ -258,7 +260,7 @@ INSERT INTO public.training_modules (
     2
   ),
   (
-    'm1000000-0000-4000-8000-000000000003',
+    'e1000000-0000-4000-8000-000000000003',
     'Workplace Policies',
     'Review code of conduct, PTO, and reporting expectations.',
     'Policies',
@@ -269,7 +271,7 @@ INSERT INTO public.training_modules (
     3
   ),
   (
-    'm1000000-0000-4000-8000-000000000004',
+    'e1000000-0000-4000-8000-000000000004',
     'Role Essentials for Engineers',
     'Development workflow, code review norms, and on-call basics.',
     'Role-Specific',
@@ -280,7 +282,7 @@ INSERT INTO public.training_modules (
     4
   ),
   (
-    'm1000000-0000-4000-8000-000000000005',
+    'e1000000-0000-4000-8000-000000000005',
     'Diversity & Inclusion',
     'Building an inclusive team culture and allyship in daily work.',
     'Company Culture',
@@ -294,23 +296,23 @@ ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.video_progress (id, module_id, user_id, watched_seconds, completed) VALUES
   (
-    'vp100000-0000-4000-8000-00000000001',
-    'm1000000-0000-4000-8000-000000000001',
-    'u1000000-0000-4000-8000-000000000001',
+    'e2000000-0000-4000-8000-000000000001',
+    'e1000000-0000-4000-8000-000000000001',
+    'a1000000-0000-4000-8000-000000000001',
     600,
     true
   ),
   (
-    'vp100000-0000-4000-8000-00000000002',
-    'm1000000-0000-4000-8000-000000000002',
-    'u1000000-0000-4000-8000-000000000001',
+    'e2000000-0000-4000-8000-000000000002',
+    'e1000000-0000-4000-8000-000000000002',
+    'a1000000-0000-4000-8000-000000000001',
     240,
     false
   ),
   (
-    'vp100000-0000-4000-8000-00000000003',
-    'm1000000-0000-4000-8000-000000000003',
-    'u1000000-0000-4000-8000-000000000001',
+    'e2000000-0000-4000-8000-000000000003',
+    'e1000000-0000-4000-8000-000000000003',
+    'a1000000-0000-4000-8000-000000000001',
     72,
     false
   )
@@ -319,8 +321,8 @@ ON CONFLICT (id) DO NOTHING;
 -- WO-017: Quiz for Secure Your Workspace training module
 INSERT INTO public.quizzes (id, module_id, title, pass_score, active) VALUES
   (
-    'q1000000-0000-4000-8000-000000000001',
-    'm1000000-0000-4000-8000-000000000002',
+    '91000000-0000-4000-8000-000000000001',
+    'e1000000-0000-4000-8000-000000000002',
     'Security Training Quiz',
     80,
     true
@@ -329,24 +331,24 @@ ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.quiz_questions (id, quiz_id, prompt, sort_order, choices, correct_index) VALUES
   (
-    'qq100000-0000-4000-8000-00000000001',
-    'q1000000-0000-4000-8000-000000000001',
+    '91100000-0000-4000-8000-000000000001',
+    '91000000-0000-4000-8000-000000000001',
     'What should you enable on all company devices?',
     1,
     '["MFA", "Guest Wi-Fi sharing", "Public file sync"]'::jsonb,
     0
   ),
   (
-    'qq100000-0000-4000-8000-00000000002',
-    'q1000000-0000-4000-8000-000000000001',
+    '91100000-0000-4000-8000-000000000002',
+    '91000000-0000-4000-8000-000000000001',
     'How should you handle sensitive customer data?',
     2,
     '["Store in personal cloud drives", "Encrypt at rest and in transit", "Share via public links"]'::jsonb,
     1
   ),
   (
-    'qq100000-0000-4000-8000-00000000003',
-    'q1000000-0000-4000-8000-000000000001',
+    '91100000-0000-4000-8000-000000000003',
+    '91000000-0000-4000-8000-000000000001',
     'Who should you contact if you suspect a phishing email?',
     3,
     '["IT Operations", "Any external vendor", "No one — ignore it"]'::jsonb,
@@ -357,43 +359,43 @@ ON CONFLICT (id) DO NOTHING;
 -- WO-020: Sample chatbot conversations for alex.newhire
 INSERT INTO public.chat_sessions (id, user_id, status, escalated) VALUES
   (
-    'cs100000-0000-4000-8000-000000000001',
-    'u1000000-0000-4000-8000-000000000001',
+    'd2000000-0000-4000-8000-000000000001',
+    'a1000000-0000-4000-8000-000000000001',
     'open',
     false
   ),
   (
-    'cs100000-0000-4000-8000-000000000002',
-    'u1000000-0000-4000-8000-000000000002',
+    'd2000000-0000-4000-8000-000000000002',
+    'a1000000-0000-4000-8000-000000000002',
     'open', true
   )
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO public.chat_messages (id, session_id, sender_type, message_text, confidence_score) VALUES
   (
-    'cm100000-0000-4000-8000-00000000001',
-    'cs100000-0000-4000-8000-000000000001',
+    'd3000000-0000-4000-8000-000000000001',
+    'd2000000-0000-4000-8000-000000000001',
     'user',
     'Where can I find my onboarding checklist?',
     NULL
   ),
   (
-    'cm100000-0000-4000-8000-00000000002',
-    'cs100000-0000-4000-8000-000000000001',
+    'd3000000-0000-4000-8000-000000000002',
+    'd2000000-0000-4000-8000-000000000001',
     'bot',
     'Open the Checklist page from the sidebar to view tasks assigned to your role.',
     0.9200
   ),
   (
-    'cm100000-0000-4000-8000-00000000003',
-    'cs100000-0000-4000-8000-000000000001',
+    'd3000000-0000-4000-8000-000000000003',
+    'd2000000-0000-4000-8000-000000000001',
     'user',
     'When does benefits enrollment start?',
     NULL
   ),
   (
-    'cm100000-0000-4000-8000-00000000004',
-    'cs100000-0000-4000-8000-000000000001',
+    'd3000000-0000-4000-8000-000000000004',
+    'd2000000-0000-4000-8000-000000000001',
     'bot',
     'Enrollment opens on your start date and remains open for 30 days. See the FAQ for plan details.',
     0.8800
@@ -403,47 +405,47 @@ ON CONFLICT (id) DO NOTHING;
 -- WO-030: In-app notification seeds for test users
 INSERT INTO public.notifications (id, user_id, channel, target_role, status, payload) VALUES
   (
-    'n1000000-0000-4000-8000-000000000001',
-    'u1000000-0000-4000-8000-000000000001',
+    'a3000000-0000-4000-8000-000000000001',
+    'a1000000-0000-4000-8000-000000000001',
     'in_app',
     NULL,
     'sent',
     '{"title": "Welcome to EmHub", "body": "Complete your Day 1 checklist to get started.", "type": "onboarding", "link": "/dashboard"}'::jsonb
   ),
   (
-    'n1000000-0000-4000-8000-000000000002',
-    'u1000000-0000-4000-8000-000000000001',
+    'a3000000-0000-4000-8000-000000000002',
+    'a1000000-0000-4000-8000-000000000001',
     'in_app',
     NULL,
     'sent',
     '{"title": "Security training due", "body": "Finish security training before your first sprint.", "type": "task", "link": "/dashboard"}'::jsonb
   ),
   (
-    'n1000000-0000-4000-8000-000000000003',
-    'u1000000-0000-4000-8000-000000000001',
+    'a3000000-0000-4000-8000-000000000003',
+    'a1000000-0000-4000-8000-000000000001',
     'in_app',
     NULL,
     'read',
     '{"title": "Manager intro scheduled", "body": "Your manager meeting is on the calendar for tomorrow.", "type": "calendar"}'::jsonb
   ),
   (
-    'n1000000-0000-4000-8000-000000000010',
-    'u1000000-0000-4000-8000-000000000020',
+    'a3000000-0000-4000-8000-000000000010',
+    'a1000000-0000-4000-8000-000000000020',
     'in_app',
     NULL,
     'sent',
     '{"title": "New hire batch ready", "body": "12 employees started onboarding plans this week.", "type": "hr"}'::jsonb
   ),
   (
-    'n1000000-0000-4000-8000-000000000020',
-    'u1000000-0000-4000-8000-000000000030',
+    'a3000000-0000-4000-8000-000000000020',
+    'a1000000-0000-4000-8000-000000000030',
     'in_app',
     NULL,
     'sent',
     '{"title": "Laptop provisioning queue", "body": "3 devices are waiting for shipment confirmation.", "type": "provisioning"}'::jsonb
   ),
   (
-    'n1000000-0000-4000-8000-000000000021',
+    'a3000000-0000-4000-8000-000000000021',
     NULL,
     'in_app',
     'it_ops',
@@ -451,7 +453,7 @@ INSERT INTO public.notifications (id, user_id, channel, target_role, status, pay
     '{"title": "VPN profile — Jordan Lee", "body": "Create VPN access for jordan.newhire@emhub.local.", "type": "provisioning"}'::jsonb
   ),
   (
-    'n1000000-0000-4000-8000-000000000022',
+    'a3000000-0000-4000-8000-000000000022',
     NULL,
     'in_app',
     'it_ops',
@@ -463,16 +465,16 @@ ON CONFLICT (id) DO NOTHING;
 -- WO-022: Escalated chat messages for HR queue (jordan.newhire; session cs…002 seeded above)
 INSERT INTO public.chat_messages (id, session_id, sender_type, message_text, confidence_score, metadata) VALUES
   (
-    'cm100000-0000-4000-8000-000000000010',
-    'cs100000-0000-4000-8000-000000000002',
+    'd3000000-0000-4000-8000-000000000010',
+    'd2000000-0000-4000-8000-000000000002',
     'user',
     'I need help with my relocation stipend',
     NULL,
     '{}'::jsonb
   ),
   (
-    'cm100000-0000-4000-8000-000000000011',
-    'cs100000-0000-4000-8000-000000000002',
+    'd3000000-0000-4000-8000-000000000011',
+    'd2000000-0000-4000-8000-000000000002',
     'bot',
     'I could not find a matching FAQ article. This is an automated assistant stub.',
     0.25,

@@ -62,7 +62,7 @@ vi.mock('@/lib/supabase', () => ({
 }));
 
 function fakeJwt(role: string) {
-  const body = btoa(JSON.stringify({ role }));
+  const body = btoa(JSON.stringify({ app_role: role }));
   return `hdr.${body}.sig`;
 }
 

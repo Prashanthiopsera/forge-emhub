@@ -23,7 +23,11 @@ export function SignupPage() {
       setError(signUpError.message);
       return;
     }
-    setMessage('Check your email for a confirmation link before signing in.');
+    setMessage(
+      import.meta.env.DEV
+        ? 'Account created. In local dev you can sign in immediately (no email). If confirmations are enabled, open Mailpit at http://127.0.0.1:54324 for the link.'
+        : 'Check your email for a confirmation link before signing in.',
+    );
   }
 
   return (

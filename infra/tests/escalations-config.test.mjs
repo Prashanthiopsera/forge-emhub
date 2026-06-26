@@ -24,7 +24,7 @@ describe('HR Escalations (WO-022)', () => {
   });
 
   it('seeds an escalated chat session', () => {
-    assert.match(seed, /cs100000-0000-4000-8000-000000000002/);
+    assert.match(seed, /d2000000-0000-4000-8000-000000000002/);
     assert.match(seed, /WO-022: Escalated chat/);
     assert.match(seed, /relocation stipend/);
   });

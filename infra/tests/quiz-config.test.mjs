@@ -21,7 +21,7 @@ describe('Quiz engine (WO-017)', () => {
   it('seeds quiz questions for security training module', () => {
     assert.match(seed, /INSERT INTO public\.quizzes/);
     assert.match(seed, /INSERT INTO public\.quiz_questions/);
-    assert.match(seed, /m1000000-0000-4000-8000-000000000002/);
+    assert.match(seed, /e1000000-0000-4000-8000-000000000002/);
   });
 
   it('wires /training/:moduleId/quiz to QuizPage', () => {

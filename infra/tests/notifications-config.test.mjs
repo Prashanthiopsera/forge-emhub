@@ -12,14 +12,14 @@ const migration = readFileSync(
   'utf8',
 );
 
-const alexId = 'u1000000-0000-4000-8000-000000000001';
+const alexId = 'a1000000-0000-4000-8000-000000000001';
 
 describe('In-app notifications (WO-030)', () => {
   it('seeds in_app notifications for test users', () => {
     assert.match(seed, /INSERT INTO public\.notifications/);
     assert.match(seed, /'in_app'/);
     assert.match(seed, new RegExp(alexId));
-    assert.match(seed, /n1000000-0000-4000-8000-000000000001/);
+    assert.match(seed, /a3000000-0000-4000-8000-000000000001/);
   });
 
   it('allows users to mark own notifications read and enables realtime', () => {

@@ -1,7 +1,8 @@
 # Supabase CLI configuration for local development.
 #
 # Used by `supabase start` to spin up a local stack matching the production project shape:
-# PostgreSQL 16, Auth (GoTrue), Storage, Realtime, Edge Functions.
+# PostgreSQL 15 locally (Supabase CLI supports 15; use hosted PG 16 in cloud if configured).
+# Auth (GoTrue), Storage, Realtime, Edge Functions.
 #
 # This file is checked in — it contains no secrets. The local CLI generates dev-only
 # anon/service keys at `supabase start` time and writes them to .supabase/ (gitignored).
@@ -17,7 +18,7 @@ max_rows        = 1000
 
 [db]
 port          = 54322
-major_version = 16
+major_version = 15
 
 [db.pooler]
 enabled       = true
@@ -53,7 +54,7 @@ enable_manual_linking  = false
 [auth.email]
 enable_signup         = true
 double_confirm_changes = true
-enable_confirmations  = true
+enable_confirmations  = false
 
 [auth.hook.custom_access_token]
 enabled = true

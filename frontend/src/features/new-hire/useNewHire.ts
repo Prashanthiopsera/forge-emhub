@@ -83,16 +83,16 @@ export function useNewHire() {
         { id: 'd1000000-0000-4000-8000-000000000001', name: 'Engineering' },
         { id: 'd1000000-0000-4000-8000-000000000004', name: 'Platform' },
       ]);
-      setManagers([{ id: 'u1000000-0000-4000-8000-000000000010', fullName: 'Morgan Blake' }]);
+      setManagers([{ id: 'a1000000-0000-4000-8000-000000000010', fullName: 'Morgan Blake' }]);
       setTemplates([
         {
-          id: 't1000000-0000-4000-8000-000000000001',
+          id: 'b1000000-0000-4000-8000-000000000001',
           name: 'Engineering IC — Standard',
           targetRole: 'employee',
           targetDepartment: 'Engineering',
         },
         {
-          id: 't1000000-0000-4000-8000-000000000003',
+          id: 'b1000000-0000-4000-8000-000000000003',
           name: 'All Departments — Day 1 Essentials',
           targetRole: 'employee',
           targetDepartment: null,
@@ -137,8 +137,8 @@ export function useNewHire() {
         const planId = crypto.randomUUID();
         const taskDrafts = buildTaskProgressDrafts(
           [
-            { id: 'tt100000-0000-4000-8000-00000000001', dueDateOffsetDays: 0 },
-            { id: 'tt100000-0000-4000-8000-00000000002', dueDateOffsetDays: 7 },
+            { id: 'c1000000-0000-4000-8000-000000000001', dueDateOffsetDays: 0 },
+            { id: 'c1000000-0000-4000-8000-000000000002', dueDateOffsetDays: 7 },
           ],
           form.startDate,
         );

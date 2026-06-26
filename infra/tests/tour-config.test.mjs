@@ -14,7 +14,7 @@ const appShell = readFileSync(
 describe('Product tour wiring (WO-029)', () => {
   it('seeds tour_complete auto-complete task', () => {
     assert.match(seed, /tour_complete/);
-    assert.match(seed, /tt100000-0000-4000-8000-00000000006/);
+    assert.match(seed, /c1000000-0000-4000-8000-00000000006/);
   });
 
   it('mounts ProductTour in AppShell', () => {

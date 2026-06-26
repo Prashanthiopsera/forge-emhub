@@ -9,7 +9,7 @@ export type CertificateData = {
 };
 
 /** Modules with quizzes require a passing score before certificate issuance (WO-019). */
-const MODULES_WITH_QUIZ = new Set(['m1000000-0000-4000-8000-000000000002']);
+const MODULES_WITH_QUIZ = new Set(['e1000000-0000-4000-8000-000000000002']);
 
 export function isEligibleForCertificate(
   module: CatalogModule,

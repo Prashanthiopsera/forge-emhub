@@ -24,21 +24,53 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const supabase = getSupabase();
+    let cancelled = false;
 
-    void supabase.auth.getSession().then(({ data: { session: initial } }) => {
-      setSession(initial);
-      setLoading(false);
-    });
+    const finishLoading = () => {
+      if (!cancelled) setLoading(false);
+    };
+
+    let supabase;
+    try {
+      supabase = getSupabase();
+    } catch (err) {
+      console.error('[auth] Supabase client not configured', err);
+      finishLoading();
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      console.warn(
+        '[auth] Session check timed out. Is Docker running? Try: npm run supabase:status',
+      );
+      finishLoading();
+    }, 8_000);
+
+    void supabase.auth
+      .getSession()
+      .then(({ data: { session: initial } }) => {
+        if (!cancelled) setSession(initial);
+      })
+      .catch((err) => {
+        console.error('[auth] getSession failed', err);
+      })
+      .finally(() => {
+        window.clearTimeout(timeoutId);
+        finishLoading();
+      });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      setSession(nextSession);
-      setLoading(false);
+      if (!cancelled) setSession(nextSession);
+      finishLoading();
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {

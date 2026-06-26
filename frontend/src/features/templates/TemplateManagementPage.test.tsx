@@ -19,7 +19,7 @@ describe('TemplateManagementPage (WO-014)', () => {
       loading: false,
       error: null,
       saving: false,
-      selectedId: 't1000000-0000-4000-8000-000000000001',
+      selectedId: 'b1000000-0000-4000-8000-000000000001',
       setSelectedId: vi.fn(),
       load: vi.fn(),
       createTemplate: vi.fn(),

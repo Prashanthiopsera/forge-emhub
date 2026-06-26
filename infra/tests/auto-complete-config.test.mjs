@@ -20,7 +20,7 @@ describe('Task auto-completion (WO-013)', () => {
 
   it('seeds auto-complete event for security training task', () => {
     assert.match(seed, /auto_complete_event/);
-    assert.match(seed, /video_complete:m1000000-0000-4000-8000-000000000002/);
+    assert.match(seed, /video_complete:e1000000-0000-4000-8000-000000000002/);
   });
 
   it('includes autoComplete service and tests', () => {

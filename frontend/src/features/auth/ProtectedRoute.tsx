@@ -39,12 +39,20 @@ export function PublicAuthRoute({ children }: { children: React.ReactElement }) 
     let cancelled = false;
     setResolving(true);
 
-    void resolvePostAuthPath(role, from).then((path) => {
-      if (!cancelled) {
-        setRedirectTo(path);
-        setResolving(false);
-      }
-    });
+    void resolvePostAuthPath(role, from)
+      .then((path) => {
+        if (!cancelled) {
+          setRedirectTo(path);
+          setResolving(false);
+        }
+      })
+      .catch((err) => {
+        console.error('[auth] resolvePostAuthPath failed', err);
+        if (!cancelled) {
+          setRedirectTo(from);
+          setResolving(false);
+        }
+      });
 
     return () => {
       cancelled = true;

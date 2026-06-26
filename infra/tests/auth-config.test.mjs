@@ -17,7 +17,7 @@ describe('Auth migration and config (WO-008)', () => {
     assert.match(migration, /custom_access_token_hook/);
     assert.match(migration, /handle_new_user/);
     assert.match(migration, /on_auth_user_created/);
-    assert.match(migration, /'\{role\}'/);
+    assert.match(migration, /'\{app_role\}'/);
   });
 
   it('enables custom access token hook in config', () => {

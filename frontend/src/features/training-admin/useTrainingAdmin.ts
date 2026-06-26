@@ -127,7 +127,7 @@ export function useTrainingAdmin() {
       const fixture = TRAINING_MODULE_FIXTURES.map((module, index) => ({
         ...module,
         displayOrder: index + 1,
-        quizId: module.id === 'm1000000-0000-4000-8000-000000000002' ? 'q1000000-0000-4000-8000-000000000001' : null,
+        quizId: module.id === 'e1000000-0000-4000-8000-000000000002' ? '91000000-0000-4000-8000-000000000001' : null,
         passScore: 80,
       }));
       setModules(fixture);
@@ -184,7 +184,7 @@ export function useTrainingAdmin() {
     } catch {
       setQuestions([
         {
-          id: 'qq100000-0000-4000-8000-00000000001',
+          id: '91100000-0000-4000-8000-000000000001',
           quizId,
           prompt: 'What should you enable on all company devices?',
           choices: ['MFA', 'Guest Wi-Fi sharing', 'Public file sync'],

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/AuthContext';
 import { completeTourChecklistTask } from '@/features/tour/completeTourChecklistTask';
 import { TOUR_STEPS } from '@/features/tour/tour.constants';
@@ -6,6 +7,7 @@ import { markTourCompleted, shouldShowTour } from '@/features/tour/tour.logic';
 
 export function useProductTour() {
   const { user, role, loading } = useAuth();
+  const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
 
@@ -16,6 +18,11 @@ export function useProductTour() {
   }, [loading, user, role]);
 
   const currentStep = TOUR_STEPS[stepIndex] ?? null;
+
+  useEffect(() => {
+    if (!active || !currentStep) return;
+    navigate(currentStep.path);
+  }, [active, currentStep, navigate]);
   const isLastStep = stepIndex >= TOUR_STEPS.length - 1;
 
   const finishTour = useCallback(async () => {

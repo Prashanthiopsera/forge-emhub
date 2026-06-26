@@ -1,12 +1,12 @@
 import { ALEX_USER_ID } from '@/features/dashboard/dashboard.fixtures';
 import type { InAppNotification } from '@/features/notifications/notification.types';
 
-export const HR_ADMIN_USER_ID = 'u1000000-0000-4000-8000-000000000020';
-export const IT_OPS_USER_ID = 'u1000000-0000-4000-8000-000000000030';
+export const HR_ADMIN_USER_ID = 'a1000000-0000-4000-8000-000000000020';
+export const IT_OPS_USER_ID = 'a1000000-0000-4000-8000-000000000030';
 
 const alexNotifications: InAppNotification[] = [
   {
-    id: 'n1000000-0000-4000-8000-000000000001',
+    id: 'a3000000-0000-4000-8000-000000000001',
     title: 'Welcome to EmHub',
     body: 'Complete your Day 1 checklist to get started.',
     type: 'onboarding',
@@ -16,7 +16,7 @@ const alexNotifications: InAppNotification[] = [
     read: false,
   },
   {
-    id: 'n1000000-0000-4000-8000-000000000002',
+    id: 'a3000000-0000-4000-8000-000000000002',
     title: 'Security training due',
     body: 'Finish security training before your first sprint.',
     type: 'task',
@@ -26,7 +26,7 @@ const alexNotifications: InAppNotification[] = [
     read: false,
   },
   {
-    id: 'n1000000-0000-4000-8000-000000000003',
+    id: 'a3000000-0000-4000-8000-000000000003',
     title: 'Manager intro scheduled',
     body: 'Your manager meeting is on the calendar for tomorrow.',
     type: 'calendar',
@@ -39,7 +39,7 @@ const alexNotifications: InAppNotification[] = [
 
 const hrNotifications: InAppNotification[] = [
   {
-    id: 'n1000000-0000-4000-8000-000000000010',
+    id: 'a3000000-0000-4000-8000-000000000010',
     title: 'New hire batch ready',
     body: '12 employees started onboarding plans this week.',
     type: 'hr',
@@ -52,7 +52,7 @@ const hrNotifications: InAppNotification[] = [
 
 const itNotifications: InAppNotification[] = [
   {
-    id: 'n1000000-0000-4000-8000-000000000020',
+    id: 'a3000000-0000-4000-8000-000000000020',
     title: 'Laptop provisioning queue',
     body: '3 devices are waiting for shipment confirmation.',
     type: 'provisioning',

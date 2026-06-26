@@ -15,11 +15,16 @@
     "test:schema": "node --test infra/tests/schema-config.test.mjs",
     "test:schema:integration": "./infra/scripts/schema-migrate-test.sh",
     "gen:types": "./scripts/gen-types.sh",
+    "supabase:start": "cd infra && npx supabase start",
+    "supabase:stop": "cd infra && npx supabase stop",
+    "supabase:reset": "cd infra && npx supabase db reset",
+    "supabase:status": "cd infra && npx supabase status -o env",
     "test:watch": "npm run test:watch --prefix frontend",
     "test:integration": "./infra/scripts/integration-test.sh"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",
+    "supabase": "^2.101.0",
     "vitest": "^2.1.4"
   }
 }

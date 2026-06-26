@@ -6,9 +6,15 @@
 git clone https://github.com/Prashanthiopsera/forge-emhub.git
 cd forge-emhub
 npm install
-cd infra/supabase && supabase start
-cd ../..
-cp frontend/.env.example frontend/.env.local   # fill from supabase status -o env
+# From repo root (CLI workdir is infra/, config is infra/supabase/config.toml):
+npm run supabase:start
+npm run supabase:status    # prints API_URL and ANON_KEY
+
+cp frontend/.env.example frontend/.env.local
+# Paste API_URL → VITE_SUPABASE_URL and ANON_KEY → VITE_SUPABASE_ANON_KEY from status output.
+# Do not paste comment lines (lines starting with #) into the terminal.
+
+npm run supabase:reset     # migrations + seed
 npm run dev
 ```
 

@@ -12,7 +12,7 @@ describe('Chatbot UI (WO-020)', () => {
   it('seeds sample chat sessions and messages', () => {
     assert.match(seed, /INSERT INTO public\.chat_sessions/);
     assert.match(seed, /INSERT INTO public\.chat_messages/);
-    assert.match(seed, /cs100000-0000-4000-8000-000000000001/);
+    assert.match(seed, /d2000000-0000-4000-8000-000000000001/);
   });
 
   it('wires ChatWidget floating button in AppShell', () => {

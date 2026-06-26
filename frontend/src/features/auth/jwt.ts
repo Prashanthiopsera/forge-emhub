@@ -20,11 +20,15 @@ export function decodeJwtPayload(accessToken: string): Record<string, unknown> |
   }
 }
 
-/** Read custom `role` claim injected by custom_access_token_hook (WO-008). */
+/** Read custom `app_role` claim injected by custom_access_token_hook (WO-008). */
 export function getRoleFromSession(session: Session | null): AppRole | null {
   if (!session?.access_token) return null;
   const payload = decodeJwtPayload(session.access_token);
-  if (payload && isAppRole(payload.role)) return payload.role;
-  const meta = session.user.app_metadata?.role ?? session.user.user_metadata?.role;
+  if (payload && isAppRole(payload.app_role)) return payload.app_role;
+  const meta =
+    session.user.app_metadata?.app_role ??
+    session.user.user_metadata?.app_role ??
+    session.user.app_metadata?.role ??
+    session.user.user_metadata?.role;
   return isAppRole(meta) ? meta : null;
 }

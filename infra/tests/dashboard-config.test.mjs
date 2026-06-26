@@ -11,15 +11,15 @@ const routes = readFileSync(
   'utf8',
 );
 
-const alexId = 'u1000000-0000-4000-8000-000000000001';
+const alexId = 'a1000000-0000-4000-8000-000000000001';
 
 describe('Dashboard seed and wiring (WO-011)', () => {
   it('seeds onboarding plan and task progress for alex.newhire', () => {
     assert.match(seed, /INSERT INTO public\.onboarding_plans/);
     assert.match(seed, /INSERT INTO public\.task_progress/);
     assert.match(seed, new RegExp(alexId));
-    assert.match(seed, /t1000000-0000-4000-8000-000000000001/);
-    assert.match(seed, /tt100000-0000-4000-8000-00000000001/);
+    assert.match(seed, /b1000000-0000-4000-8000-000000000001/);
+    assert.match(seed, /c1000000-0000-4000-8000-00000000001/);
   });
 
   it('wires /dashboard to DashboardPage', () => {

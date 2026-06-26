@@ -8,7 +8,7 @@ import {
 
 describe('autoComplete (WO-013)', () => {
   it('builds event type strings for training modules', () => {
-    const moduleId = 'm1000000-0000-4000-8000-000000000002';
+    const moduleId = 'e1000000-0000-4000-8000-000000000002';
     expect(buildVideoCompleteEvent(moduleId)).toBe(`video_complete:${moduleId}`);
     expect(buildQuizPassEvent(moduleId)).toBe(`quiz_pass:${moduleId}`);
   });
@@ -18,14 +18,14 @@ describe('autoComplete (WO-013)', () => {
     const client = { rpc } as never;
 
     const result = await autoCompleteTask(
-      'u1000000-0000-4000-8000-000000000001',
-      buildVideoCompleteEvent('m1000000-0000-4000-8000-000000000002'),
+      'a1000000-0000-4000-8000-000000000001',
+      buildVideoCompleteEvent('e1000000-0000-4000-8000-000000000002'),
       client,
     );
 
     expect(rpc).toHaveBeenCalledWith('auto_complete_tasks_for_event', {
-      p_user_id: 'u1000000-0000-4000-8000-000000000001',
-      p_event_type: 'video_complete:m1000000-0000-4000-8000-000000000002',
+      p_user_id: 'a1000000-0000-4000-8000-000000000001',
+      p_event_type: 'video_complete:e1000000-0000-4000-8000-000000000002',
     });
     expect(result.updatedCount).toBe(1);
     expect(result.error).toBeNull();
@@ -36,10 +36,10 @@ describe('autoComplete (WO-013)', () => {
     const client = { rpc } as never;
     const event: AutoCompleteEventType = 'tour_complete';
 
-    await autoCompleteTask('u1000000-0000-4000-8000-000000000001', event, client);
+    await autoCompleteTask('a1000000-0000-4000-8000-000000000001', event, client);
 
     expect(rpc).toHaveBeenCalledWith('auto_complete_tasks_for_event', {
-      p_user_id: 'u1000000-0000-4000-8000-000000000001',
+      p_user_id: 'a1000000-0000-4000-8000-000000000001',
       p_event_type: 'tour_complete',
     });
   });
@@ -49,8 +49,8 @@ describe('autoComplete (WO-013)', () => {
     const client = { rpc } as never;
 
     const result = await autoCompleteTask(
-      'u1000000-0000-4000-8000-000000000001',
-      buildQuizPassEvent('m1000000-0000-4000-8000-000000000002'),
+      'a1000000-0000-4000-8000-000000000001',
+      buildQuizPassEvent('e1000000-0000-4000-8000-000000000002'),
       client,
     );
 

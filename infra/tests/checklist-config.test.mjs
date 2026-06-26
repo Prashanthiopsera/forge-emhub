@@ -11,13 +11,13 @@ const routes = readFileSync(
   'utf8',
 );
 
-const alexId = 'u1000000-0000-4000-8000-000000000001';
+const alexId = 'a1000000-0000-4000-8000-000000000001';
 
 describe('Checklist seed and wiring (WO-012)', () => {
   it('seeds tasks across Day 1, Week 1, and Month 1 for alex.newhire', () => {
     assert.match(seed, /Month 1/);
-    assert.match(seed, /tt100000-0000-4000-8000-00000000005/);
-    assert.match(seed, /tp100000-0000-4000-8000-00000000005/);
+    assert.match(seed, /c1000000-0000-4000-8000-00000000005/);
+    assert.match(seed, /b3000000-0000-4000-8000-00000000005/);
     assert.match(seed, new RegExp(alexId));
     assert.match(seed, /CURRENT_DATE - 3/);
   });

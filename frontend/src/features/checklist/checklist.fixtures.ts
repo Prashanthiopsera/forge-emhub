@@ -11,7 +11,7 @@ const overdueDue = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString();
 
 const alexChecklistTasks: ChecklistTask[] = [
   {
-    id: 'tp100000-0000-4000-8000-00000000001',
+    id: 'b3000000-0000-4000-8000-000000000001',
     title: 'Complete security training',
     description: 'Finish the mandatory security awareness module in the training portal.',
     phaseName: 'Day 1',
@@ -22,7 +22,7 @@ const alexChecklistTasks: ChecklistTask[] = [
     completedAt: new Date().toISOString(),
   },
   {
-    id: 'tp100000-0000-4000-8000-00000000003',
+    id: 'b3000000-0000-4000-8000-000000000003',
     title: 'Meet your manager',
     description: 'Schedule a 30-minute intro meeting with your direct manager.',
     phaseName: 'Day 1',
@@ -33,7 +33,7 @@ const alexChecklistTasks: ChecklistTask[] = [
     completedAt: null,
   },
   {
-    id: 'tp100000-0000-4000-8000-00000000002',
+    id: 'b3000000-0000-4000-8000-000000000002',
     title: 'Set up development environment',
     description: 'Clone repos, install tooling, and verify local build passes.',
     phaseName: 'Week 1',
@@ -44,7 +44,7 @@ const alexChecklistTasks: ChecklistTask[] = [
     completedAt: null,
   },
   {
-    id: 'tp100000-0000-4000-8000-00000000004',
+    id: 'b3000000-0000-4000-8000-000000000004',
     title: 'Shadow a team standup',
     description: 'Attend at least one team standup to learn rituals and stakeholders.',
     phaseName: 'Week 1',
@@ -55,7 +55,7 @@ const alexChecklistTasks: ChecklistTask[] = [
     completedAt: null,
   },
   {
-    id: 'tp100000-0000-4000-8000-00000000005',
+    id: 'b3000000-0000-4000-8000-000000000005',
     title: 'Complete 30-day goals review',
     description: 'Document initial goals and review them with your manager.',
     phaseName: 'Month 1',

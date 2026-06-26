@@ -7,7 +7,7 @@ describe('chatbot.logic (WO-020)', () => {
     const { messages } = buildChatFixture();
     const reversed = [...messages].reverse();
     const sorted = sortMessagesChronologically(reversed);
-    expect(sorted[0].id).toBe('cm100000-0000-4000-8000-00000000001');
+    expect(sorted[0].id).toBe('d3000000-0000-4000-8000-000000000001');
   });
 
   it('formats timestamps for display', () => {

@@ -25,6 +25,6 @@ describe('org-chart.logic (WO-023)', () => {
   it('collects ancestor ids for search matches', () => {
     const alex = nodes.find((node) => node.displayName === 'Alex Chen')!;
     const expanded = collectExpandedNodeIds(nodes, new Set([alex.id]));
-    expect(expanded.has('o1000000-0000-4000-8000-000000000002')).toBe(true);
+    expect(expanded.has('c2000000-0000-4000-8000-000000000002')).toBe(true);
   });
 });

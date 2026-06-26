@@ -1,10 +1,10 @@
 import type { ChatFixtureData, ChatMessage } from '@/features/chatbot/chatbot.types';
 
-export const CHAT_SESSION_FIXTURE_ID = 'cs100000-0000-4000-8000-000000000001';
+export const CHAT_SESSION_FIXTURE_ID = 'd2000000-0000-4000-8000-000000000001';
 
 const fixtureMessages: ChatMessage[] = [
   {
-    id: 'cm100000-0000-4000-8000-00000000001',
+    id: 'd3000000-0000-4000-8000-000000000001',
     sessionId: CHAT_SESSION_FIXTURE_ID,
     senderType: 'user',
     messageText: 'Where can I find my onboarding checklist?',
@@ -13,7 +13,7 @@ const fixtureMessages: ChatMessage[] = [
     createdAt: '2026-05-20T10:00:00.000Z',
   },
   {
-    id: 'cm100000-0000-4000-8000-00000000002',
+    id: 'd3000000-0000-4000-8000-000000000002',
     sessionId: CHAT_SESSION_FIXTURE_ID,
     senderType: 'bot',
     messageText:
@@ -23,7 +23,7 @@ const fixtureMessages: ChatMessage[] = [
     createdAt: '2026-05-20T10:00:01.000Z',
   },
   {
-    id: 'cm100000-0000-4000-8000-00000000003',
+    id: 'd3000000-0000-4000-8000-000000000003',
     sessionId: CHAT_SESSION_FIXTURE_ID,
     senderType: 'user',
     messageText: 'When does benefits enrollment start?',
@@ -32,7 +32,7 @@ const fixtureMessages: ChatMessage[] = [
     createdAt: '2026-05-20T10:05:00.000Z',
   },
   {
-    id: 'cm100000-0000-4000-8000-00000000004',
+    id: 'd3000000-0000-4000-8000-000000000004',
     sessionId: CHAT_SESSION_FIXTURE_ID,
     senderType: 'bot',
     messageText:
@@ -43,7 +43,7 @@ const fixtureMessages: ChatMessage[] = [
   },
 ];
 
-export function buildChatFixture(userId = 'u1000000-0000-4000-8000-000000000001'): ChatFixtureData {
+export function buildChatFixture(userId = 'a1000000-0000-4000-8000-000000000001'): ChatFixtureData {
   return {
     session: {
       id: CHAT_SESSION_FIXTURE_ID,

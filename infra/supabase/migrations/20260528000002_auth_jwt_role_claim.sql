@@ -1,6 +1,6 @@
 -- WO-008: JWT role claim from profiles + auto-create profile on signup
 
--- Inject `role` into access token JWT from public.profiles (used by clients and optional RLS helpers).
+-- Inject `app_role` into access token JWT from public.profiles (do not overwrite JWT `role` = authenticated).
 CREATE OR REPLACE FUNCTION public.custom_access_token_hook(event jsonb)
 RETURNS jsonb
 LANGUAGE plpgsql
@@ -22,7 +22,7 @@ BEGIN
     AND deleted_at IS NULL;
 
   IF user_role IS NOT NULL THEN
-    new_claims := jsonb_set(new_claims, '{role}', to_jsonb(user_role::text));
+    new_claims := jsonb_set(new_claims, '{app_role}', to_jsonb(user_role::text));
   END IF;
 
   RETURN jsonb_build_object('claims', new_claims);

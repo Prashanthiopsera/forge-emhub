@@ -24,7 +24,7 @@ describe.skipIf(!LIVE)('Training progress (live Supabase)', () => {
     expect(catalog).not.toBeNull();
     expect(catalog!.modules.length).toBeGreaterThanOrEqual(5);
 
-    const target = catalog!.modules.find((module) => module.id === 'm1000000-0000-4000-8000-000000000004');
+    const target = catalog!.modules.find((module) => module.id === 'e1000000-0000-4000-8000-000000000004');
     expect(target).toBeDefined();
 
     const watchedSeconds = Math.ceil(target!.durationSeconds * 0.91);

@@ -49,7 +49,7 @@ vi.mock('@/lib/supabase', () => ({
 }));
 
 function fakeJwt(role: string) {
-  const body = btoa(JSON.stringify({ role }));
+  const body = btoa(JSON.stringify({ app_role: role }));
   return `hdr.${body}.sig`;
 }
 
@@ -86,7 +86,7 @@ describe('useTrainingProgress (WO-016)', () => {
     mockTrainingOrder.mockResolvedValue({
       data: [
         {
-          id: 'm1000000-0000-4000-8000-000000000001',
+          id: 'e1000000-0000-4000-8000-000000000001',
           title: 'Welcome to Our Culture',
           description: 'Culture intro',
           category: 'Company Culture',
@@ -101,7 +101,7 @@ describe('useTrainingProgress (WO-016)', () => {
     mockProgressEq.mockResolvedValue({
       data: [
         {
-          module_id: 'm1000000-0000-4000-8000-000000000001',
+          module_id: 'e1000000-0000-4000-8000-000000000001',
           watched_seconds: 600,
           completed: true,
         },

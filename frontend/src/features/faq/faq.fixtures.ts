@@ -12,7 +12,7 @@ const reviewed = '2026-05-01T12:00:00.000Z';
 
 export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
   {
-    id: 'fa100000-0000-4000-8000-00000000001',
+    id: 'fa100000-0000-4000-8000-000000000001',
     categoryId: 'f1000000-0000-4000-8000-000000000001',
     categoryName: 'Benefits',
     categorySlug: 'benefits',
@@ -21,7 +21,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000002',
+    id: 'fa100000-0000-4000-8000-000000000002',
     categoryId: 'f1000000-0000-4000-8000-000000000002',
     categoryName: 'IT Setup',
     categorySlug: 'it-setup',
@@ -30,7 +30,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000003',
+    id: 'fa100000-0000-4000-8000-000000000003',
     categoryId: 'f1000000-0000-4000-8000-000000000001',
     categoryName: 'Benefits',
     categorySlug: 'benefits',
@@ -39,7 +39,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000004',
+    id: 'fa100000-0000-4000-8000-000000000004',
     categoryId: 'f1000000-0000-4000-8000-000000000001',
     categoryName: 'Benefits',
     categorySlug: 'benefits',
@@ -48,7 +48,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000005',
+    id: 'fa100000-0000-4000-8000-000000000005',
     categoryId: 'f1000000-0000-4000-8000-000000000001',
     categoryName: 'Benefits',
     categorySlug: 'benefits',
@@ -57,7 +57,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000006',
+    id: 'fa100000-0000-4000-8000-000000000006',
     categoryId: 'f1000000-0000-4000-8000-000000000002',
     categoryName: 'IT Setup',
     categorySlug: 'it-setup',
@@ -66,7 +66,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000007',
+    id: 'fa100000-0000-4000-8000-000000000007',
     categoryId: 'f1000000-0000-4000-8000-000000000002',
     categoryName: 'IT Setup',
     categorySlug: 'it-setup',
@@ -75,7 +75,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000008',
+    id: 'fa100000-0000-4000-8000-000000000008',
     categoryId: 'f1000000-0000-4000-8000-000000000002',
     categoryName: 'IT Setup',
     categorySlug: 'it-setup',
@@ -84,7 +84,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000009',
+    id: 'fa100000-0000-4000-8000-000000000009',
     categoryId: 'f1000000-0000-4000-8000-000000000003',
     categoryName: 'Onboarding',
     categorySlug: 'onboarding',
@@ -93,7 +93,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-0000000000a',
+    id: 'fa100000-0000-4000-8000-00000000000a',
     categoryId: 'f1000000-0000-4000-8000-000000000003',
     categoryName: 'Onboarding',
     categorySlug: 'onboarding',
@@ -102,7 +102,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-0000000000b',
+    id: 'fa100000-0000-4000-8000-00000000000b',
     categoryId: 'f1000000-0000-4000-8000-000000000003',
     categoryName: 'Onboarding',
     categorySlug: 'onboarding',
@@ -111,7 +111,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-0000000000c',
+    id: 'fa100000-0000-4000-8000-00000000000c',
     categoryId: 'f1000000-0000-4000-8000-000000000003',
     categoryName: 'Onboarding',
     categorySlug: 'onboarding',
@@ -120,7 +120,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-0000000000d',
+    id: 'fa100000-0000-4000-8000-00000000000d',
     categoryId: 'f1000000-0000-4000-8000-000000000004',
     categoryName: 'Payroll',
     categorySlug: 'payroll',
@@ -129,7 +129,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-0000000000e',
+    id: 'fa100000-0000-4000-8000-00000000000e',
     categoryId: 'f1000000-0000-4000-8000-000000000004',
     categoryName: 'Payroll',
     categorySlug: 'payroll',
@@ -138,7 +138,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-0000000000f',
+    id: 'fa100000-0000-4000-8000-00000000000f',
     categoryId: 'f1000000-0000-4000-8000-000000000004',
     categoryName: 'Payroll',
     categorySlug: 'payroll',
@@ -147,7 +147,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000010',
+    id: 'fa100000-0000-4000-8000-000000000010',
     categoryId: 'f1000000-0000-4000-8000-000000000004',
     categoryName: 'Payroll',
     categorySlug: 'payroll',
@@ -156,7 +156,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000011',
+    id: 'fa100000-0000-4000-8000-000000000011',
     categoryId: 'f1000000-0000-4000-8000-000000000005',
     categoryName: 'Policies',
     categorySlug: 'policies',
@@ -165,7 +165,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000012',
+    id: 'fa100000-0000-4000-8000-000000000012',
     categoryId: 'f1000000-0000-4000-8000-000000000005',
     categoryName: 'Policies',
     categorySlug: 'policies',
@@ -174,7 +174,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000013',
+    id: 'fa100000-0000-4000-8000-000000000013',
     categoryId: 'f1000000-0000-4000-8000-000000000005',
     categoryName: 'Policies',
     categorySlug: 'policies',
@@ -183,7 +183,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000014',
+    id: 'fa100000-0000-4000-8000-000000000014',
     categoryId: 'f1000000-0000-4000-8000-000000000005',
     categoryName: 'Policies',
     categorySlug: 'policies',
@@ -192,7 +192,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000015',
+    id: 'fa100000-0000-4000-8000-000000000015',
     categoryId: 'f1000000-0000-4000-8000-000000000002',
     categoryName: 'IT Setup',
     categorySlug: 'it-setup',
@@ -201,7 +201,7 @@ export const FAQ_FIXTURE_ARTICLES: FaqArticle[] = [
     reviewedAt: reviewed,
   },
   {
-    id: 'fa100000-0000-4000-8000-00000000016',
+    id: 'fa100000-0000-4000-8000-000000000016',
     categoryId: 'f1000000-0000-4000-8000-000000000001',
     categoryName: 'Benefits',
     categorySlug: 'benefits',

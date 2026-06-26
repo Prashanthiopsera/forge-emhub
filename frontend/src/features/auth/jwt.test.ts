@@ -10,13 +10,13 @@ function fakeJwt(payload: Record<string, unknown>): string {
 
 describe('jwt helpers (WO-008)', () => {
   it('decodes JWT payload', () => {
-    const token = fakeJwt({ role: 'hr_admin', sub: 'user-1' });
-    expect(decodeJwtPayload(token)?.role).toBe('hr_admin');
+    const token = fakeJwt({ app_role: 'hr_admin', sub: 'user-1' });
+    expect(decodeJwtPayload(token)?.app_role).toBe('hr_admin');
   });
 
   it('reads role from session access token', () => {
     const session = {
-      access_token: fakeJwt({ role: 'manager' }),
+      access_token: fakeJwt({ app_role: 'manager' }),
       user: { id: 'u1', app_metadata: {}, user_metadata: {} },
     } as unknown as Session;
     expect(getRoleFromSession(session)).toBe('manager');

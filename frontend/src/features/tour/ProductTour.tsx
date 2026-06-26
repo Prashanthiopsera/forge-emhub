@@ -1,8 +1,29 @@
+import { useEffect } from 'react';
 import { useProductTour } from '@/features/tour/useProductTour';
+
+const TOUR_HIGHLIGHT_CLASS = 'ring-2 ring-brand-500 ring-offset-2 bg-brand-50';
 
 export function ProductTour() {
   const { active, currentStep, stepIndex, totalSteps, isLastStep, nextStep, skipTour } =
     useProductTour();
+
+  useEffect(() => {
+    if (!active || !currentStep) return;
+
+    const selector = `[data-tour-nav="${currentStep.path}"]`;
+    const target = document.querySelector<HTMLElement>(selector);
+    document.querySelectorAll('[data-tour-nav].tour-nav-highlight').forEach((el) => {
+      el.classList.remove('tour-nav-highlight', ...TOUR_HIGHLIGHT_CLASS.split(' '));
+    });
+    if (target) {
+      target.classList.add('tour-nav-highlight', ...TOUR_HIGHLIGHT_CLASS.split(' '));
+      target.scrollIntoView({ block: 'nearest' });
+    }
+
+    return () => {
+      target?.classList.remove('tour-nav-highlight', ...TOUR_HIGHLIGHT_CLASS.split(' '));
+    };
+  }, [active, currentStep]);
 
   if (!active || !currentStep) return null;
 
@@ -22,7 +43,8 @@ export function ProductTour() {
         </h2>
         <p className="mt-2 text-sm text-slate-600">{currentStep.description}</p>
         <p className="mt-2 text-xs text-slate-500">
-          Highlighting <span className="font-medium">{currentStep.path}</span> in the sidebar.
+          The <span className="font-medium">{currentStep.label}</span> item in the sidebar is
+          highlighted — use Next to continue the tour.
         </p>
         <div className="mt-6 flex justify-end gap-2">
           <button
